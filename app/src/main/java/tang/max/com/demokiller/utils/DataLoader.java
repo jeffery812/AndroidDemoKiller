@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tang.max.com.demokiller.activity.LoginActivity;
+import tang.max.com.demokiller.activity.WatchActivity;
 import tang.max.com.demokiller.model.DemoEntity;
 
 /**
@@ -23,7 +24,7 @@ public class DataLoader {
     public List<DemoEntity> getTestList() {
         List<DemoEntity> list = new ArrayList<>();
         list.add(new DemoEntity("Login Demo", LoginActivity.class));
-        list.add(new DemoEntity("Login Demo", LoginActivity.class));
+        list.add(new DemoEntity("Watch Activity", WatchActivity.class));
         list.add(new DemoEntity("Login Demo", LoginActivity.class));
         list.add(new DemoEntity("Login Demo", LoginActivity.class));
         list.add(new DemoEntity("Login Demo", LoginActivity.class));
