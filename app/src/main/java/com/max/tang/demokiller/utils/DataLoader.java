@@ -2,6 +2,7 @@ package com.max.tang.demokiller.utils;
 
 import com.max.tang.demokiller.activity.DemoDataBindingActivity;
 import com.max.tang.demokiller.activity.LoginActivity;
+import com.max.tang.demokiller.activity.RxActivity;
 import com.max.tang.demokiller.activity.WatchActivity;
 import com.max.tang.demokiller.model.DemoEntity;
 
@@ -27,6 +28,7 @@ public class DataLoader {
         list.add(new DemoEntity("Login Demo", LoginActivity.class));
         list.add(new DemoEntity("Watch Activity", WatchActivity.class));
         list.add(new DemoEntity("Data Binding", DemoDataBindingActivity.class));
+        list.add(new DemoEntity("Rx Demo", RxActivity.class));
         return list;
     }
 }

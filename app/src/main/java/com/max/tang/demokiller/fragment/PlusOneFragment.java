@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.plus.PlusOneButton;
 
 import com.max.tang.demokiller.R;
+import com.max.tang.demokiller.utils.log.Logger;
 
 /**
  * A fragment with a Google +1 button.
@@ -65,6 +66,7 @@ public class PlusOneFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Logger.d("onCreate");
     }
 
     @Override

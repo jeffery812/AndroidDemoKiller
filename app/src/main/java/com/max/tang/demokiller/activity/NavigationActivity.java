@@ -15,11 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import butterknife.ButterKnife;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.fragment.DemoListFragmenty;
 import com.max.tang.demokiller.fragment.PlusOneFragment;
 import com.max.tang.demokiller.utils.log.Logger;
+
+import butterknife.ButterKnife;
 
 public class NavigationActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, PlusOneFragment.OnFragmentInteractionListener, DemoListFragmenty.OnFragmentInteractionListener {
@@ -48,6 +49,11 @@ public class NavigationActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //navigationView.getMenu().getItem(0).setChecked(true);
+        navigationView.setCheckedItem(R.id.demo_list);
+        if (savedInstanceState == null) {
+            navigationView.getMenu().performIdentifierAction(R.id.demo_list, 0);
+        }
 
         ButterKnife.bind(this);
         Logger.d("onCreate");
@@ -94,11 +100,13 @@ public class NavigationActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Logger.d("Navigation Item Clicked: " + item.getItemId() );
+
         if (id == R.id.demo_list) {
-            fragment = new DemoListFragmenty();
+            fragment = DemoListFragmenty.newInstance("","");
             ft.replace(R.id.content_navigation, fragment);
         } else if (id == R.id.plus_one) {
-            fragment = new PlusOneFragment();
+            fragment = PlusOneFragment.newInstance("","");
             ft.replace(R.id.content_navigation, fragment);
 
         } else if (id == R.id.nav_manage) {

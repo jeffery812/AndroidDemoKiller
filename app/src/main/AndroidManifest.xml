@@ -17,13 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.max.tang.demokiller.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login">
         </activity>
-        <activity android:name="com.max.tang.demokiller.activity.WatchActivity">
+        <activity android:name=".activity.WatchActivity">
         </activity>
         <activity
-            android:name="com.max.tang.demokiller.activity.NavigationActivity"
+            android:name=".activity.NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -33,9 +33,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.max.tang.demokiller.activity.DemoDataBindingActivity"
-            android:label="@string/title_activity_demo_data_binding"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activity.DemoDataBindingActivity"
+            android:label="@string/title_activity_demo_data_binding">
+        </activity>
+        <activity android:name=".activity.RxActivity">
         </activity>
     </application>
 
