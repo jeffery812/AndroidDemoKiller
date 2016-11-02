@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.max.tang.demokiller.activity.NavigationActivity">
+    tools:context="com.max.tang.demokiller.activity.DemoDataBindingActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_navigation"/>
+    <include layout="@layout/content_demo_data_binding"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

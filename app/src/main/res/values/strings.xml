@@ -20,4 +20,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_demo_data_binding">DemoDataBindingActivity</string>
+
+    <string name="create_user">Create user</string>
+    <string name="log_in">Log in</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
