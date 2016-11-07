@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:orientation="vertical">
+<layout>
+    <data>
+        <variable
+            name="demo"
+            type="com.max.tang.demokiller.model.DemoEntity"/>
+    </data>
 
-    <TextView
-        android:background="@drawable/item_conver_white_bg"
-        android:id="@+id/item_test_title"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="Function"
-        android:textSize="20sp"/>
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_conver_white_bg"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="@{demo.description}"
+            android:onClick="@{demo.onClicked}"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+</layout>

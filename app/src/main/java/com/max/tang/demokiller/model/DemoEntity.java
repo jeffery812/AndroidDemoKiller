@@ -1,5 +1,9 @@
 package com.max.tang.demokiller.model;
 
+import android.view.View;
+
+import com.max.tang.demokiller.utils.log.Logger;
+
 /**
  * Created by zhihuitang on 2016-11-01.
  */
@@ -27,5 +31,9 @@ public class DemoEntity {
 
     public void setClassName(Class className) {
         mClassName = className;
+    }
+
+    public void onClicked(View view){
+        Logger.d("open demo here");
     }
 }

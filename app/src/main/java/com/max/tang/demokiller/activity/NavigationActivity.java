@@ -2,6 +2,7 @@ package com.max.tang.demokiller.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -126,5 +127,10 @@ public class NavigationActivity extends BaseActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
         Logger.d("onFragmentInteraction: " + uri.getHost());
+    }
+
+    public void gotoDemo(Class className){
+        Intent intent = new Intent(this, className);
+        startActivity(intent);
     }
 }

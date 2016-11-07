@@ -1,19 +1,16 @@
 package com.max.tang.demokiller.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.max.tang.demokiller.R;
+import com.max.tang.demokiller.databinding.ItemDemoBinding;
+import com.max.tang.demokiller.model.DemoEntity;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.max.tang.demokiller.R;
-import com.max.tang.demokiller.model.DemoEntity;
 
 /**
  * Created by zhihuitang on 2016-11-01.
@@ -31,21 +28,14 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
 
     @Override
     public DemoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new DemoViewHolder(LayoutInflater.from(mActivity).inflate(R.layout.item_demo, parent, false));
+        //return new DemoViewHolder(LayoutInflater.from(mActivity).inflate(R.layout.item_demo, parent, false));
+        ItemDemoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_demo, parent, false);
+        return new DemoViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(DemoViewHolder holder, int position) {
-
-        final DemoEntity demoEntity = mDemoEntityList.get(position);
-        holder.mTextView.setText(demoEntity.getDescription());
-        holder.mTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mActivity, demoEntity.getClassName());
-                mActivity.startActivity(intent);
-            }
-        });
+        holder.bindConnection(mDemoEntityList.get(position));
     }
 
     @Override
@@ -62,13 +52,15 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
 
     class DemoViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.item_test_title)
-        TextView mTextView;
-        View mItemView;
-        public DemoViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-            this.mItemView = itemView;
+       private ItemDemoBinding binding;
+
+        public DemoViewHolder(ItemDemoBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bindConnection(DemoEntity demo){
+            binding.setDemo(demo);
         }
     }
 }
