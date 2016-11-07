@@ -1,14 +1,17 @@
 package com.max.tang.demokiller.adapter;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.databinding.ItemDemoBinding;
+import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.model.DemoEntity;
+import com.max.tang.demokiller.model.RecycleViewDemoListener;
+import com.max.tang.demokiller.utils.log.Logger;
 
 import java.util.List;
 
@@ -18,11 +21,11 @@ import java.util.List;
 
 public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder> {
 
-    private Activity mActivity;
+    private OnFragmentInteractionListener mListener;
     private List<DemoEntity> mDemoEntityList;
 
-    public DemoAdapter(Activity activity, List<DemoEntity> demoEntities) {
-        this.mActivity = activity;
+    public DemoAdapter(OnFragmentInteractionListener eventHandler, List<DemoEntity> demoEntities) {
+        this.mListener = eventHandler;
         this.mDemoEntityList = demoEntities;
     }
 
@@ -34,8 +37,15 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
     }
 
     @Override
-    public void onBindViewHolder(DemoViewHolder holder, int position) {
+    public void onBindViewHolder(final DemoViewHolder holder, final int position) {
         holder.bindConnection(mDemoEntityList.get(position));
+        holder.binding.setListener(new RecycleViewDemoListener() {
+            @Override
+            public void demoClicked(View view) {
+                Logger.d("demo item clicked: " + mDemoEntityList.get(position).getDescription());
+                mListener.startDemo(mDemoEntityList.get(position).getClassName());
+            }
+        });
     }
 
     @Override
@@ -50,17 +60,22 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
         notifyItemRangeInserted(pos, mDemoEntityList.size());
     }
 
-    class DemoViewHolder extends RecyclerView.ViewHolder {
+    class DemoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-       private ItemDemoBinding binding;
+        private ItemDemoBinding binding;
 
-        public DemoViewHolder(ItemDemoBinding binding) {
+        private DemoViewHolder(ItemDemoBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bindConnection(DemoEntity demo){
+        private void bindConnection(DemoEntity demo) {
             binding.setDemo(demo);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Logger.d("DemoViewHolder onClick event");
         }
     }
 }

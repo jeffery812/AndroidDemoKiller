@@ -18,13 +18,16 @@ import android.view.View;
 
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.fragment.DemoListFragmenty;
+import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.fragment.PlusOneFragment;
 import com.max.tang.demokiller.utils.log.Logger;
 
 import butterknife.ButterKnife;
 
 public class NavigationActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PlusOneFragment.OnFragmentInteractionListener, DemoListFragmenty.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        PlusOneFragment.OnFragmentInteractionListener,
+        OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +132,8 @@ public class NavigationActivity extends BaseActivity
         Logger.d("onFragmentInteraction: " + uri.getHost());
     }
 
-    public void gotoDemo(Class className){
+    @Override
+    public void startDemo(Class className) {
         Intent intent = new Intent(this, className);
         startActivity(intent);
     }

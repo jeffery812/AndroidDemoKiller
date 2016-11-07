@@ -4,6 +4,9 @@
         <variable
             name="demo"
             type="com.max.tang.demokiller.model.DemoEntity"/>
+        <variable
+            name="listener"
+            type="com.max.tang.demokiller.model.RecycleViewDemoListener"/>
     </data>
 
     <LinearLayout
@@ -20,7 +23,7 @@
             android:gravity="center"
             android:padding="20dp"
             android:text="@{demo.description}"
-            android:onClick="@{demo.onClicked}"
+            android:onClick="@{listener.demoClicked}"
             android:textSize="20sp"/>
 
     </LinearLayout>
