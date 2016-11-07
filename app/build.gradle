@@ -10,8 +10,12 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        // Enabling multidex support.
+        multiDexEnabled true
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     dataBinding {
         enabled true
     }
@@ -38,4 +42,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.6.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.android.support:multidex:1.0.0'
 }
