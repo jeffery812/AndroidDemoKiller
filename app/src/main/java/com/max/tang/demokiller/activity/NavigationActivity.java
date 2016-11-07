@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.max.tang.demokiller.R;
-import com.max.tang.demokiller.fragment.DemoListFragmenty;
+import com.max.tang.demokiller.fragment.DemoListFragment;
 import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.fragment.PlusOneFragment;
 import com.max.tang.demokiller.utils.log.Logger;
@@ -107,7 +107,7 @@ public class NavigationActivity extends BaseActivity
         Logger.d("Navigation Item Clicked: " + item.getItemId() );
 
         if (id == R.id.demo_list) {
-            fragment = DemoListFragmenty.newInstance("","");
+            fragment = DemoListFragment.newInstance("","");
             ft.replace(R.id.content_navigation, fragment);
         } else if (id == R.id.plus_one) {
             fragment = PlusOneFragment.newInstance("","");
