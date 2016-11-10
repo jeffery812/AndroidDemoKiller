@@ -39,6 +39,9 @@
         </activity>
         <activity android:name=".activity.RxActivity">
         </activity>
+        <activity android:name=".activity.SortActivity"
+                  android:label="@string/sort_demo">
+        </activity>
     </application>
 
 </manifest>
