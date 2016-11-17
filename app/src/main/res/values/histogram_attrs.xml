@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Histogram">
+        <attr name="padding" format="dimension"/>
+        <attr name="color_bar" format="dimension"/>
+    </declare-styleable>
+</resources>
