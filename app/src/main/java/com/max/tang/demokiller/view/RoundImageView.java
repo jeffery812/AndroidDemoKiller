@@ -18,8 +18,6 @@ import android.util.TypedValue;
 import android.widget.ImageView;
 import com.max.tang.demokiller.R;
 
-import static android.R.attr.width;
-
 /**
  * Created by zhihuitang on 2016-11-21.
  * http://blog.csdn.net/lmj623565791/article/details/41967509
@@ -74,7 +72,7 @@ public class RoundImageView extends ImageView {
     }
 
     @Override protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        //super.onDraw(canvas);
         if (getDrawable() == null) {
             return;
         }
@@ -152,7 +150,8 @@ public class RoundImageView extends ImageView {
             return;
         }
         //将drawable转化成bitmap对象
-        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        //Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        Bitmap bitmap = drawableToBitamp(drawable);
         if (bitmap == null) {
             return;
         }
@@ -167,7 +166,7 @@ public class RoundImageView extends ImageView {
         if (type == TYPE_CIRCLE) {
             // 拿到bitmap宽或高的小值
             int size = Math.min(bitmap.getWidth(), bitmap.getHeight());
-            scale = width * 1.0f / size;
+            scale = mWidth * 1.0f / size;
         } else if (type == TYPE_ROUND) {
             // 如果图片的宽或者高与view的宽高不匹配，计算出需要缩放的比例
             // 缩放后的图片的宽高，一定要大于我们view的宽高；所以我们这里取大值
@@ -188,5 +187,20 @@ public class RoundImageView extends ImageView {
         mBitmapShader.setLocalMatrix(mMatrix);
         // 设置shader
         mPaint.setShader(mBitmapShader);
+    }
+
+    private Bitmap drawableToBitamp(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable)
+        {
+            BitmapDrawable bd = (BitmapDrawable) drawable;
+            return bd.getBitmap();
+        }
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        drawable.draw(canvas);
+        return bitmap;
     }
 }
