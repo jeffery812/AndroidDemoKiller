@@ -10,6 +10,8 @@ import android.view.View;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.utils.SizeUtil;
 import com.max.tang.demokiller.utils.log.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhihuitang on 2016-11-10.
@@ -23,6 +25,7 @@ public class HistogramView extends View {
 
   private int mWidth;
   private int mHeight;
+  private List<Integer> mData;
 
   public HistogramView(Context context) {
     super(context);
@@ -65,6 +68,12 @@ public class HistogramView extends View {
     mPaint = new Paint();
     mPaint.setAntiAlias(true);
     mPaint.setDither(true);
+
+    mData = new ArrayList<>();
+    for (int i = 0; i < 20; i++) {
+      mData.add((int)(Math.random()*100));
+    }
+
   }
 
   @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
