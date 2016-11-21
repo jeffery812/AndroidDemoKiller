@@ -22,7 +22,7 @@ public class DeviceActivity extends AppCompatActivity {
     }
 
     public void openLocationSetting(View view) {
-        AndroidSettingsUtil.openLocaionSourceSettings(this, 9);
+        AndroidSettingsUtil.openLocationSourceSettings(this, 9);
     }
 
 
