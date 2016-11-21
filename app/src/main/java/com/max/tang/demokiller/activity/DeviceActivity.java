@@ -16,12 +16,17 @@ public class DeviceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_device);
     }
 
-    public void openLocationSetting(View view) {
-        AndroidSettingsUtil.openNetwork(this, 9);
-    }
-
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Logger.d(TAG, "onActivityResult: " + requestCode );
+    }
+
+    public void openLocationSetting(View view) {
+        AndroidSettingsUtil.openLocaionSourceSettings(this, 9);
+    }
+
+
+    public void openPrivacySettings(View view) {
+        AndroidSettingsUtil.openPrivacySettings(this, 91);
     }
 }

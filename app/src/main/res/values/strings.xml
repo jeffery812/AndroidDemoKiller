@@ -29,5 +29,6 @@
   <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="sort_demo">Sort Demo</string>
   <string name="open_location_setting">Open Location Setting</string>
+  <string name="open_privacy_settings">Open privacy settings</string>
 
 </resources>
