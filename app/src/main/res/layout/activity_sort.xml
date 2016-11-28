@@ -15,9 +15,16 @@
 
     <com.max.tang.demokiller.view.HistogramView
         style="@style/Histogram_Style"
+        android:id="@+id/histogram_view"
         android:background="@color/colorLightWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:color_bar="@color/cpb_blue"
+        />
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
         />
 </LinearLayout>

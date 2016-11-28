@@ -64,9 +64,12 @@ public class HistogramView extends View {
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawCoordinates(canvas);
+
+        if( mData == null || mData.isEmpty() ){
+            return;
+        }
         int x = getPaddingLeft();
         int y = mHeight - getPaddingBottom();
-        int itemPadding = 5;
         int maxItem = Collections.max(mData);
         float scaleY = (mHeight-100)/maxItem;
         float scaleX = mWidth/( mData.size()+2);
@@ -86,9 +89,9 @@ public class HistogramView extends View {
         mPaint.setDither(true);
 
         mData = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            mData.add((int) (Math.random() * 100));
-        }
+        //for (int i = 0; i < 25; i++) {
+        //    mData.add((int) (Math.random() * 100));
+        //}
     }
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -126,22 +129,11 @@ public class HistogramView extends View {
         Logger.i(TAG, "drawCoordinates");
         canvas.drawLine(getPaddingLeft(), mHeight - getPaddingBottom(), mWidth - getPaddingRight(),
             mHeight - getPaddingBottom(), mPaint);
-        // X轴上的箭头
-        /*
-        canvas.drawLine(mWidth - getPaddingRight() - 20, mHeight - getPaddingBottom() - 10,
-            mWidth - getPaddingRight(), mHeight - getPaddingBottom(), mPaint);
-        canvas.drawLine(mWidth - getPaddingRight() - 20, mHeight - getPaddingBottom() + 10,
-            mWidth - getPaddingRight(), mHeight - getPaddingBottom(), mPaint);
+    }
 
-        // 绘制Y轴
-        canvas.drawLine(getPaddingLeft(), getPaddingTop(), getPaddingLeft(),
-            mHeight - getPaddingBottom(), mPaint);
-
-        // Y轴上的箭头
-        canvas.drawLine(getPaddingLeft() - 10, getPaddingTop() + 20, getPaddingLeft(),
-            getPaddingTop(), mPaint);
-        canvas.drawLine(getPaddingLeft() + 10, getPaddingTop() + 20, getPaddingLeft(),
-            getPaddingTop(), mPaint);
-            */
+    public void setData(List<Integer> data) {
+        mData.clear();
+        mData.addAll(data);
+        postInvalidate();
     }
 }

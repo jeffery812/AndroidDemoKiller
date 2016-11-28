@@ -31,5 +31,6 @@
   <string name="open_location_setting">Open Location Setting</string>
   <string name="open_privacy_settings">Open privacy settings</string>
   <string name="get_language_code">get language code</string>
+  <string name="reset">Reset</string>
 
 </resources>
