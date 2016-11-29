@@ -119,7 +119,7 @@ public class HistogramView extends View {
         Logger.i(TAG, "onMeasure: " + width);
         mWidth = width;
         mHeight = width;
-        setMeasuredDimension(width, width);
+        setMeasuredDimension(width, mHeight);
     }
 
     private void drawCoordinates(Canvas canvas) {

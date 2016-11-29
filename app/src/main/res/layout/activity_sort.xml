@@ -27,4 +27,11 @@
         android:layout_height="wrap_content"
         android:text="@string/reset"
         />
+
+    <Button
+        android:id="@+id/bubble_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bubble_sort"
+        />
 </LinearLayout>
