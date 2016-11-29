@@ -7,5 +7,7 @@ import java.util.List;
  */
 
 public interface SortView {
-    public void updateUI(List<Integer> data);
+    void updateUI(final List<Integer> data);
+    void finish(final String text);
+
 }

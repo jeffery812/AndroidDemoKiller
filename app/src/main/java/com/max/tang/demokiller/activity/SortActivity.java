@@ -3,6 +3,7 @@ package com.max.tang.demokiller.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,5 +51,9 @@ public class SortActivity extends BaseActivity implements SortView {
 
     @Override public void updateUI(List<Integer> data) {
         mHistogramView.setData(mData);
+    }
+
+    @Override public void finish(String text) {
+        Toast.makeText(this, text + " finished", Toast.LENGTH_SHORT).show();
     }
 }
