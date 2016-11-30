@@ -1,6 +1,5 @@
 package com.max.tang.demokiller.utils;
 
-import com.max.tang.demokiller.utils.log.Logger;
 import com.max.tang.demokiller.view.SortView;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +43,6 @@ public class SortAlgo {
             })
             .map(new Func1<Integer, Integer>() {
                 @Override public Integer call(Integer j) {
-                    Logger.d("tang", "j = " + j);
                     if( j+1 < data.size() && data.get(j) > data.get(j+1)) {
                         int tmp = data.get(j);
                         data.set(j, data.get(j+1));
@@ -61,6 +59,7 @@ public class SortAlgo {
                 }
 
                 @Override public void onError(Throwable e) {
+                    view.finish("Bubble Sort failed");
                     e.printStackTrace();
                 }
 
