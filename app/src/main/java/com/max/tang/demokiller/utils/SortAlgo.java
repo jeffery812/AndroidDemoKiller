@@ -14,8 +14,8 @@ import rx.schedulers.Schedulers;
  * Created by zhihuitang on 2016-11-29.
  */
 
-public class SortAlgo {
-    static public void bubbleSort(final SortView view, final List<Integer> data) {
+public class SortAlgo<E> {
+    static public <E extends Comparable<E>> void bubbleSort(final SortView view, final List<E> data) {
         /*
         for( int i = 0; i < data.size(); i++ ){
             for (int j = i+1; j < data.size(); j++) {
@@ -43,10 +43,9 @@ public class SortAlgo {
             })
             .map(new Func1<Integer, Integer>() {
                 @Override public Integer call(Integer j) {
-                    if( j+1 < data.size() && data.get(j) > data.get(j+1)) {
-                        int tmp = data.get(j);
-                        data.set(j, data.get(j+1));
-                        data.set(j+1, tmp);
+                    if( j+1 < data.size() && data.get(j).compareTo(data.get(j+1)) > 0 ){
+                    //if( j+1 < data.size() && data.get(j) > data.get(j+1)) {
+                        swap(data, j, j+1 );
                     }
                     return j;
                 }
@@ -68,5 +67,11 @@ public class SortAlgo {
 
                 }
             });
+    }
+
+    static private <E> void swap(final List<E> data, final int i, final int j) {
+        E tmp = data.get(i);
+        data.set(i, data.get(j));
+        data.set(j, tmp);
     }
 }

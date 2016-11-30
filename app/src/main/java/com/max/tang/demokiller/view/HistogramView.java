@@ -18,7 +18,7 @@ import java.util.List;
  * Created by zhihuitang on 2016-11-10.
  */
 
-public class HistogramView extends View {
+public class HistogramView<E extends Comparable<E>> extends View {
     private Paint mPaint;
     private String TAG = "shanghai";
     private float mPadding; //边距
@@ -27,7 +27,7 @@ public class HistogramView extends View {
 
     private int mWidth;
     private int mHeight;
-    private List<Integer> mData;
+    private List<E> mData;
 
     public HistogramView(Context context) {
         super(context);
@@ -70,7 +70,7 @@ public class HistogramView extends View {
         }
         int x = getPaddingLeft();
         int y = mHeight - getPaddingBottom();
-        int maxItem = Collections.max(mData);
+        Float maxItem = Float.valueOf(Collections.max(mData));
         float scaleY = (mHeight-100)/maxItem;
         float scaleX = mWidth/( mData.size()+2);
 
@@ -79,7 +79,7 @@ public class HistogramView extends View {
         mPaint.setColor(mBarColor);
         for (int i = 0; i < mData.size(); i++) {
             canvas.drawLine(x + (i+1)*scaleX, y, x + (i+1)*scaleX,
-                y - mData.get(i)*scaleY, mPaint);
+                y - Float.valueOf((String)mData.get(i))*scaleY, mPaint);
         }
     }
 
@@ -126,12 +126,11 @@ public class HistogramView extends View {
 
         // X轴
         mPaint.setStrokeWidth(2);
-        Logger.i(TAG, "drawCoordinates");
         canvas.drawLine(getPaddingLeft(), mHeight - getPaddingBottom(), mWidth - getPaddingRight(),
             mHeight - getPaddingBottom(), mPaint);
     }
 
-    public void setData(List<Integer> data) {
+    public void setData(List<E> data) {
         mData.clear();
         mData.addAll(data);
         postInvalidate();

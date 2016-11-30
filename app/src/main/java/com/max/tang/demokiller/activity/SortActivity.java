@@ -25,17 +25,13 @@ public class SortActivity extends BaseActivity implements SortView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sort);
         ButterKnife.bind(this);
-
         mData = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
-            mData.add((int) (Math.random() * 100));
-        }
-        mHistogramView.setData(mData);
+
+        reset();
     }
 
 
-    @OnClick(R.id.reset)
-    public void dataReset(View view) {
+    private void reset() {
         Log.d(TAG, "dataReset: -_-!!!");
         mData.clear();
         for (int i = 0; i < 25; i++) {
@@ -43,13 +39,17 @@ public class SortActivity extends BaseActivity implements SortView {
         }
         mHistogramView.setData(mData);
     }
+    @OnClick(R.id.reset)
+    public void dataReset(View view) {
+        reset();
+    }
 
     @OnClick(R.id.bubble_sort)
     public void bubbleSort(View v){
         SortAlgo.bubbleSort(this, mData);
     }
 
-    @Override public void updateUI(List<Integer> data) {
+    @Override public void updateUI(List data) {
         mHistogramView.setData(mData);
     }
 
