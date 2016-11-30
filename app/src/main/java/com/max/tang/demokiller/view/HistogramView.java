@@ -70,7 +70,8 @@ public class HistogramView<E extends Comparable<E>> extends View {
         }
         int x = getPaddingLeft();
         int y = mHeight - getPaddingBottom();
-        Float maxItem = Float.valueOf(Collections.max(mData));
+        Float maxItem = getHistgramValue(Collections.max(mData));
+        Logger.d(TAG, "max: " + maxItem);
         float scaleY = (mHeight-100)/maxItem;
         float scaleX = mWidth/( mData.size()+2);
 
@@ -79,7 +80,7 @@ public class HistogramView<E extends Comparable<E>> extends View {
         mPaint.setColor(mBarColor);
         for (int i = 0; i < mData.size(); i++) {
             canvas.drawLine(x + (i+1)*scaleX, y, x + (i+1)*scaleX,
-                y - Float.valueOf((String)mData.get(i))*scaleY, mPaint);
+                y - getHistgramValue(mData.get(i))*scaleY, mPaint);
         }
     }
 
@@ -89,9 +90,6 @@ public class HistogramView<E extends Comparable<E>> extends View {
         mPaint.setDither(true);
 
         mData = new ArrayList<>();
-        //for (int i = 0; i < 25; i++) {
-        //    mData.add((int) (Math.random() * 100));
-        //}
     }
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -134,5 +132,16 @@ public class HistogramView<E extends Comparable<E>> extends View {
         mData.clear();
         mData.addAll(data);
         postInvalidate();
+    }
+
+    private <T> float getHistgramValue(T value){
+        if( value instanceof Integer ){
+            return (Integer)value;
+        }else if( value instanceof Float ){
+            return (Float)value;
+        }else if( value instanceof Double ){
+            return (Float)value;
+        }
+        return 0;
     }
 }
