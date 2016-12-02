@@ -35,4 +35,11 @@
       android:onClick="getLanguageCode"
       />
 
+
+  <Button
+      android:text="@string/enable_location_service"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:onClick="enableLocationService"
+      />
 </LinearLayout>
