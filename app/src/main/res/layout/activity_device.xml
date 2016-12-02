@@ -5,41 +5,62 @@
     android:id="@+id/activity_device"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="com.max.tang.demokiller.activity.DeviceActivity"
     >
 
   <Button
-      android:text="@string/open_location_setting"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
       android:id="@+id/openLocationSetting"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:onClick="openLocationSetting"
+      android:text="@string/open_location_setting"
       />
   <Button
-      android:text="@string/open_privacy_settings"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
       android:id="@+id/button3"
-      android:onClick="openPrivacySettings"
-      />
-  <Button
-      android:text="@string/get_language_code"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:onClick="openPrivacySettings"
+      android:text="@string/open_privacy_settings"
+      />
+  <Button
       android:id="@+id/button4"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:onClick="getLanguageCode"
+      android:text="@string/get_language_code"
       />
 
 
   <Button
-      android:text="@string/enable_location_service"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:onClick="enableLocationService"
+      android:text="@string/enable_location_service"
       />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      >
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="gotoDeviceSettings"
+        android:text="@string/device_settings"
+        />
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="checkSoftwareVersion"
+        android:text="@string/check_software_update"
+        />
+  </LinearLayout>
 </LinearLayout>

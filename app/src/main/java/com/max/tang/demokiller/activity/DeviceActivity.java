@@ -5,7 +5,6 @@ import android.content.IntentSender;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,7 +21,7 @@ import com.max.tang.demokiller.utils.device.AndroidSettingsUtil;
 import com.max.tang.demokiller.utils.log.Logger;
 import java.util.Locale;
 
-public class DeviceActivity extends AppCompatActivity {
+public class DeviceActivity extends BaseActivity {
     final String TAG = "device";
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +58,7 @@ public class DeviceActivity extends AppCompatActivity {
         String lanCode = Locale.getDefault().getLanguage();
         Logger.d(TAG, "getLanguage: " + lanCode);
         Logger.d(TAG, "getDisplayLanguage: " + lan);
+        Toast.makeText(this, String.format("language: %s, code: %s", lan, lanCode), Toast.LENGTH_SHORT).show();
     }
 
     public final static int PERM_REQUEST_CODE_DRAW_OVERLAYS = 1234;
@@ -122,5 +122,12 @@ public class DeviceActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void gotoDeviceSettings(View view) {
+        startIntentForSettings(this, Settings.ACTION_DEVICE_INFO_SETTINGS);
+    }
+    public void checkSoftwareVersion(View view) {
+        startIntentForSettings(this, "android.settings.SYSTEM_UPDATE_SETTINGS");
     }
 }

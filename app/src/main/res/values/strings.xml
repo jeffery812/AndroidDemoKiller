@@ -34,5 +34,7 @@
   <string name="enable_location_service">enable location service</string>
   <string name="reset">Reset</string>
   <string name="bubble_sort">Bubble Sort</string>
+  <string name="check_software_update">software update</string>
+  <string name="device_settings">Device Settings</string>
 
 </resources>
