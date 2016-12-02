@@ -5,6 +5,7 @@ import com.max.tang.demokiller.activity.DemoDataBindingActivity;
 import com.max.tang.demokiller.activity.DeviceActivity;
 import com.max.tang.demokiller.activity.LoginActivity;
 import com.max.tang.demokiller.activity.RxActivity;
+import com.max.tang.demokiller.activity.RxBindingActivity;
 import com.max.tang.demokiller.activity.SortActivity;
 import com.max.tang.demokiller.activity.WatchActivity;
 import com.max.tang.demokiller.model.DemoEntity;
@@ -34,6 +35,7 @@ public class DataLoader {
         list.add(new DemoEntity("Rx Demo", RxActivity.class));
         list.add(new DemoEntity("Device demo", DeviceActivity.class));
         list.add(new DemoEntity("Custom Views", CustomViewActivity.class));
+        list.add(new DemoEntity("RxBinding demo", RxBindingActivity.class));
         return list;
     }
 }

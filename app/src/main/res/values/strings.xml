@@ -36,5 +36,7 @@
   <string name="bubble_sort">Bubble Sort</string>
   <string name="check_software_update">software update</string>
   <string name="device_settings">Device Settings</string>
+  <string name="usual_approach">usual approach</string>
+  <string name="reactive_approach">reactive approach</string>
 
 </resources>
