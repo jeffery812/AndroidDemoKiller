@@ -1,25 +1,22 @@
 package com.max.tang.demokiller.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.adapter.DemoAdapter;
 import com.max.tang.demokiller.itemanimator.ItemAnimatorFactory;
 import com.max.tang.demokiller.model.DemoEntity;
 import com.max.tang.demokiller.utils.DataLoader;
-
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.

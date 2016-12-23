@@ -1,13 +1,13 @@
 package com.max.tang.demokiller.activity;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,14 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import butterknife.ButterKnife;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.fragment.DemoListFragment;
 import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.fragment.PlusOneFragment;
 import com.max.tang.demokiller.utils.log.Logger;
-
-import butterknife.ButterKnife;
 
 public class NavigationActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -100,7 +98,7 @@ public class NavigationActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         Fragment fragment;
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -136,5 +134,6 @@ public class NavigationActivity extends BaseActivity
     public void startDemo(Class className) {
         Intent intent = new Intent(this, className);
         startActivity(intent);
+        //overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 }

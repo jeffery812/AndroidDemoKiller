@@ -43,7 +43,9 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
             @Override
             public void demoClicked(View view) {
                 Logger.d("demo item clicked: " + mDemoEntityList.get(position).getDescription());
-                mListener.startDemo(mDemoEntityList.get(position).getClassName());
+                if( mListener != null ) {
+                    mListener.startDemo(mDemoEntityList.get(position).getClassName());
+                }
             }
         });
     }
