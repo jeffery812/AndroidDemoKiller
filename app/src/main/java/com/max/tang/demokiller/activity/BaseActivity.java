@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import com.max.tang.demokiller.utils.ActivityManager;
+import com.max.tang.demokiller.utils.log.Logger;
 import java.util.List;
 
 /**
@@ -14,6 +18,18 @@ import java.util.List;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Logger.d("shanghai", "add activity: " + this.getLocalClassName());
+        super.onCreate(savedInstanceState);
+        ActivityManager.getInstance().addActivity(this);
+    }
+
+    @Override protected void onDestroy() {
+        Logger.d("shanghai", "remove activity: " + this.getLocalClassName());
+        ActivityManager.getInstance().removeActivity(this);
+        super.onDestroy();
+    }
 
     public void startIntentForSettings(Context context, String setting) {
         Intent intent = new Intent(setting, null);
@@ -33,6 +49,12 @@ public class BaseActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
+    @Override public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+
 
     public Boolean areSettingsAvailable(Context context, Intent intent) {
         List<ResolveInfo>
