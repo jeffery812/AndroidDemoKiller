@@ -1,7 +1,9 @@
 package com.max.tang.demokiller.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -46,6 +48,16 @@ public class DeviceActivity extends BaseActivity {
 
     public void openLocationSetting(View view) {
         AndroidSettingsUtil.openLocationSourceSettings(this, 9);
+    }
+
+    public void changeAppIcon(View view) {
+        PackageManager pm = getPackageManager();
+        final String mainActivityName = "com.max.tang.demokiller.activity.NavigationActivity";
+        pm.setComponentEnabledSetting(new ComponentName(this, mainActivityName),
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        pm.setComponentEnabledSetting(new ComponentName(this, "com.max.tang.demokiller.MainAliasActivity"),
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
     }
 
 

@@ -63,4 +63,11 @@
         android:text="@string/check_software_update"
         />
   </LinearLayout>
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:onClick="changeAppIcon"
+      android:text="@string/change_app_icon"
+      />
+
 </LinearLayout>
