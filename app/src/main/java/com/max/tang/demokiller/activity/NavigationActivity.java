@@ -134,6 +134,6 @@ public class NavigationActivity extends BaseActivity
     public void startDemo(Class className) {
         Intent intent = new Intent(this, className);
         startActivity(intent);
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        overridePendingTransition(android.R.anim.slide_in_left, R.anim.slide_out_left);
     }
 }
