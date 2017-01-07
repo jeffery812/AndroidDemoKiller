@@ -16,6 +16,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     dataBinding {
         enabled true
     }
@@ -26,6 +30,7 @@ android {
         }
     }
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
