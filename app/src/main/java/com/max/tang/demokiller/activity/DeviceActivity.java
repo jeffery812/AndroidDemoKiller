@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -25,10 +29,13 @@ import java.util.Locale;
 
 public class DeviceActivity extends BaseActivity {
     final String TAG = "device";
+    @BindView(R.id.tv_model) TextView tvModel;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device);
+        ButterKnife.bind(this);
+        tvModel.setText(Build.MODEL);
         permissionToDrawOverlays();
     }
 

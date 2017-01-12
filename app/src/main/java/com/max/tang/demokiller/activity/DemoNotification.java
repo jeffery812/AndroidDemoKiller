@@ -71,6 +71,6 @@ public class DemoNotification extends BaseActivity {
 
         NotificationManager mNotificationManager =
             (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(0, notification);
+        mNotificationManager.notify(1, notification);
     }
 }

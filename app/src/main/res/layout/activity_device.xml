@@ -13,6 +13,11 @@
     tools:context="com.max.tang.demokiller.activity.DeviceActivity"
     >
 
+  <TextView
+      android:id="@+id/tv_model"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
   <Button
       android:id="@+id/openLocationSetting"
       android:layout_width="match_parent"
