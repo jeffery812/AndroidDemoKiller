@@ -7,6 +7,14 @@
   <uses-permission android:name="android.permission.READ_PROFILE"/>
   <uses-permission android:name="android.permission.READ_CONTACTS"/>
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+  <receiver android:name="com.max.tang.demokiller.utils.ConnectionChangeReceiver"
+      android:label="NetworkConnection">
+    <intent-filter>
+      <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+    </intent-filter>
+  </receiver>
 
   <!-- To access Google+ APIs: -->
   <uses-permission android:name="android.permission.INTERNET"/>

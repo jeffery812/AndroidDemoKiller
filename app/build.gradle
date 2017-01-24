@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -15,6 +19,7 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
 
     lintOptions {
         abortOnError false
@@ -62,6 +67,11 @@ dependencies {
 
 
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+    compile 'com.jakewharton.timber:timber:4.5.0'
     //compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
     //compile 'com.jakewharton.rxbinding:rxbinding-design:1.0.0'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "org.jetbrains.anko:anko-common:$anko_version"
 }

@@ -1,7 +1,6 @@
 package com.max.tang.demokiller.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -9,11 +8,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.utils.SortAlgo;
+import com.max.tang.demokiller.utils.log.Logger;
 import com.max.tang.demokiller.view.HistogramView;
 import com.max.tang.demokiller.view.SortView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 public class SortActivity extends BaseActivity implements SortView {
     private static final String TAG = "sort";
@@ -27,6 +28,7 @@ public class SortActivity extends BaseActivity implements SortView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sort);
         ButterKnife.bind(this);
+        Timber.tag("Shanghai");
         mData = new ArrayList<>();
 
         mSortAlog = new SortAlgo();
@@ -35,7 +37,8 @@ public class SortActivity extends BaseActivity implements SortView {
 
 
     private void reset() {
-        Log.d(TAG, "dataReset: -_-!!!");
+        Timber.w("dataReset: -_-!!!");
+        Logger.w("dataReset: -_-!!!");
         mData.clear();
         for (int i = 0; i < 25; i++) {
             mData.add((int)(Math.random() * 100));
