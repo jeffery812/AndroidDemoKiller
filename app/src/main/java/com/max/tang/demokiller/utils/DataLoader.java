@@ -1,5 +1,6 @@
 package com.max.tang.demokiller.utils;
 
+import com.max.tang.demokiller.activity.CoordinatorLayoutActivity;
 import com.max.tang.demokiller.activity.CustomViewActivity;
 import com.max.tang.demokiller.activity.DemoDataBindingActivity;
 import com.max.tang.demokiller.activity.DemoNotification;
@@ -38,6 +39,7 @@ public class DataLoader {
         list.add(new DemoEntity("Custom Views", CustomViewActivity.class));
         list.add(new DemoEntity("RxBinding demo", RxBindingActivity.class));
         list.add(new DemoEntity("Notification demo", DemoNotification.class));
+        list.add(new DemoEntity("CoordinatorLayout demo", CoordinatorLayoutActivity.class));
         return list;
     }
 }

@@ -9,7 +9,8 @@
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-  <receiver android:name="com.max.tang.demokiller.utils.ConnectionChangeReceiver"
+  <receiver
+      android:name=".utils.ConnectionChangeReceiver"
       android:label="NetworkConnection">
     <intent-filter>
       <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
@@ -73,6 +74,11 @@
     <activity android:name=".activity.RxBindingActivity">
     </activity>
     <activity android:name=".activity.DemoNotification">
+    </activity>
+    <activity
+        android:name=".activity.CoordinatorLayoutActivity"
+        android:label="@string/title_activity_coordinator_layout"
+        android:theme="@style/AppTheme.NoActionBar">
     </activity>
   </application>
 
