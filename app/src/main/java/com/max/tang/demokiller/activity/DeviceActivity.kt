@@ -70,6 +70,11 @@ class DeviceActivity : BaseActivity() {
     AndroidSettingsUtil.openPrivacySettings(this, 91)
   }
 
+  override fun onResume() {
+    super.onResume()
+    Logger.d(TAG, "hello Device demo in Kotlin")
+  }
+
   fun getLanguageCode(view: View) {
     val lan = Locale.getDefault().displayLanguage
     val lanCode = Locale.getDefault().language

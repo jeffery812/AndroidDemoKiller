@@ -25,12 +25,12 @@ public class ActivityManager {
     }
 
     public void addActivity(Activity activity) {
-        Logger.d("shanghai", "ActivityManager add: " + activity.getLocalClassName());
+        Logger.d("max-tang", "ActivityManager add: " + activity.getLocalClassName());
         activities.add(activity);
     }
 
     public void removeActivity(Activity activity){
-        Logger.d("shanghai", "ActivityManager remove: " + activity.getLocalClassName());
+        Logger.d("max-tang", "ActivityManager remove: " + activity.getLocalClassName());
         activities.remove(activity);
     }
 

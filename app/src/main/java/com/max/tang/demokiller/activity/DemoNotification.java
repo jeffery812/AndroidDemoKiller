@@ -7,10 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
+import android.widget.Toast;
 import com.max.tang.demokiller.R;
+import com.max.tang.demokiller.utils.NetUtils;
+import com.max.tang.demokiller.utils.log.Logger;
 
 public class DemoNotification extends BaseActivity {
 
@@ -72,5 +77,24 @@ public class DemoNotification extends BaseActivity {
         NotificationManager mNotificationManager =
             (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(1, notification);
+    }
+
+    public void checkNetwork(View view) {
+        ConnectivityManager connectivitymanager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = connectivitymanager.getActiveNetworkInfo();
+
+        if( networkInfo != null ) {
+            Logger.d("shanghai", "network " + networkInfo.getDetailedState()+ ", " + networkInfo.getTypeName());
+        }else {
+            Logger.d("shanghai", "network is none" );
+        }
+
+        if( NetUtils.isAirplaneModeOn(this) ) {
+            Toast.makeText(this, "Airplane mode is on", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Airplane mode is off", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

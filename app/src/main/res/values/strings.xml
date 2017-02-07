@@ -41,5 +41,6 @@
   <string name="reactive_approach">reactive approach</string>
   <string name="notification1">notification1</string>
   <string name="notification2">notification2</string>
+  <string name="check_network">Check network</string>
 
 </resources>

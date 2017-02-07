@@ -25,5 +25,11 @@
       android:text="@string/notification2"
       android:onClick="notification2"
       />
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/check_network"
+      android:onClick="checkNetwork"
+      />
 
 </LinearLayout>
