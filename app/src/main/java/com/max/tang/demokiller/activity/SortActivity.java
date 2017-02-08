@@ -1,5 +1,7 @@
 package com.max.tang.demokiller.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -30,6 +32,10 @@ public class SortActivity extends BaseActivity implements SortView {
         ButterKnife.bind(this);
         Timber.tag("Shanghai");
         mData = new ArrayList<>();
+
+        Intent intent = getIntent();
+        Uri uri = intent.getData();
+        Logger.d("data in intent: " + uri.toString());
 
         mSortAlog = new SortAlgo();
         reset();

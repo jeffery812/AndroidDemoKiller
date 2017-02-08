@@ -66,6 +66,11 @@
     <activity
         android:name=".activity.SortActivity"
         android:label="@string/sort_demo">
+      <intent-filter>
+        <action android:name="com.max"/>
+        <data android:scheme="type"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
     </activity>
     <activity android:name=".activity.DeviceActivity">
     </activity>
@@ -78,6 +83,11 @@
     <activity
         android:name=".activity.CoordinatorLayoutActivity"
         android:label="@string/title_activity_coordinator_layout"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity
+        android:name=".activity.MessActivity"
+        android:label="@string/title_activity_mess"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
   </application>
