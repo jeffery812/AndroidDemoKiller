@@ -29,4 +29,25 @@
       android:onClick="startSortActivity"
       />
 
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="test RxAndroid Join"
+      android:onClick="testRxAndroidJoin"
+      />
+
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="test RxAndroid Merge"
+      android:onClick="testRxAndroidMerge"
+      />
+
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Start Service"
+      android:onClick="startService"
+      />
+
 </LinearLayout>

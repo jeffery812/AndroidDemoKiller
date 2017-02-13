@@ -27,6 +27,7 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
+
     <activity
         android:name=".activity.LoginActivity"
         android:label="@string/title_activity_login">
@@ -90,6 +91,9 @@
         android:label="@string/title_activity_mess"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
+
+    <service android:name=".service.DemoService" >
+    </service>
   </application>
 
 </manifest>
