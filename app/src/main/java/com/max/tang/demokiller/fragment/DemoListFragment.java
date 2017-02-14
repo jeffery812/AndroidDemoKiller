@@ -15,7 +15,7 @@ import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.adapter.DemoAdapter;
 import com.max.tang.demokiller.itemanimator.ItemAnimatorFactory;
 import com.max.tang.demokiller.model.DemoEntity;
-import com.max.tang.demokiller.utils.DataLoader;
+import com.max.tang.demokiller.DataLoader;
 import java.util.List;
 
 /**

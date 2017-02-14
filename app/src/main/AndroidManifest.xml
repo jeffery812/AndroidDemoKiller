@@ -27,7 +27,6 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-
     <activity
         android:name=".activity.LoginActivity"
         android:label="@string/title_activity_login">
@@ -69,7 +68,9 @@
         android:label="@string/sort_demo">
       <intent-filter>
         <action android:name="com.max"/>
+
         <data android:scheme="type"/>
+
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
@@ -92,8 +93,11 @@
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
 
-    <service android:name=".service.DemoService" >
+    <service android:name=".service.DemoService">
     </service>
+
+    <activity android:name=".activity.ListViewDemo">
+    </activity>
   </application>
 
 </manifest>

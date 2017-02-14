@@ -1,10 +1,11 @@
-package com.max.tang.demokiller.utils;
+package com.max.tang.demokiller;
 
 import com.max.tang.demokiller.activity.CoordinatorLayoutActivity;
 import com.max.tang.demokiller.activity.CustomViewActivity;
 import com.max.tang.demokiller.activity.DemoDataBindingActivity;
 import com.max.tang.demokiller.activity.DemoNotification;
 import com.max.tang.demokiller.activity.DeviceActivity;
+import com.max.tang.demokiller.activity.ListViewDemo;
 import com.max.tang.demokiller.activity.LoginActivity;
 import com.max.tang.demokiller.activity.MessActivity;
 import com.max.tang.demokiller.activity.RxActivity;
@@ -42,6 +43,7 @@ public class DataLoader {
         list.add(new DemoEntity("Notification demo", DemoNotification.class));
         list.add(new DemoEntity("CoordinatorLayout demo", CoordinatorLayoutActivity.class));
         list.add(new DemoEntity("大杂烩 demo", MessActivity.class));
+        list.add(new DemoEntity("ListView demo", ListViewDemo.class));
         return list;
     }
 }
