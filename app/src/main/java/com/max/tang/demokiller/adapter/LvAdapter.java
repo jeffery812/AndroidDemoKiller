@@ -7,11 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.model.TestBean;
 import com.max.tang.demokiller.utils.log.Logger;
+import com.max.tang.demokiller.view.ListViewForScrollView;
 import java.util.List;
-import com.bumptech.glide.Glide;
 
 /**
  * Created by zhihuitang on 2017-02-14.
@@ -54,12 +55,14 @@ public class LvAdapter extends BaseAdapter {
             holder = new LvViewHolder();
             holder.tv = (TextView) convertView.findViewById(R.id.tv);
             holder.iv = (ImageView) convertView.findViewById(R.id.iv);
+            holder.lv = (ListViewForScrollView) convertView.findViewById(R.id.lv2);
             convertView.setTag(holder);
         } else {
             holder = (LvViewHolder) convertView.getTag();
         }
         TestBean testBean = mDatas.get(position);
         holder.tv.setText(testBean.getName());
+        holder.lv.setAdapter(new NestAdapter(testBean.getNest(), mContext));
         Glide.with(mContext)
             .load(testBean.getUrl())
             .into(holder.iv);
@@ -70,6 +73,7 @@ public class LvAdapter extends BaseAdapter {
     private static class LvViewHolder {
         TextView tv;
         ImageView iv;
+        ListViewForScrollView lv;
     }
 
 }
