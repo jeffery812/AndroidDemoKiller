@@ -98,6 +98,11 @@
 
     <activity android:name=".activity.ListViewDemo">
     </activity>
+    <activity
+        android:name=".mygithub.activity.MyGithubActivity"
+        android:label="@string/title_activity_my_github"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
   </application>
 
 </manifest>

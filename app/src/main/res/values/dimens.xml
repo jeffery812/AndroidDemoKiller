@@ -9,4 +9,11 @@
   <dimen name="image_final_width">32dp</dimen>
   <dimen name="image_width">120dp</dimen>
   <dimen name="title_margin">20dp</dimen>
+  <dimen name="default_text_size">16sp</dimen>
+  <dimen name="default_padding_size_halved">8dp</dimen>
+  <dimen name="default_padding_size">16dp</dimen>
+  <dimen name="default_padding_size_quarter">4dp</dimen>
+  <dimen name="default_layout_margin">16dp</dimen>
+  <dimen name="large_text_size">36sp</dimen>
+
 </resources>

@@ -13,6 +13,7 @@ import com.max.tang.demokiller.activity.RxBindingActivity;
 import com.max.tang.demokiller.activity.SortActivity;
 import com.max.tang.demokiller.activity.WatchActivity;
 import com.max.tang.demokiller.model.DemoEntity;
+import com.max.tang.demokiller.mygithub.activity.MyGithubActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class DataLoader {
     //获取本地测试的Activity列表
     public List<DemoEntity> getTestList() {
         List<DemoEntity> list = new ArrayList<>();
+        list.add(new DemoEntity("My Github", MyGithubActivity.class));
         list.add(new DemoEntity("Sort Demo", SortActivity.class));
         list.add(new DemoEntity("Login Demo", LoginActivity.class));
         list.add(new DemoEntity("Watch Activity", WatchActivity.class));
