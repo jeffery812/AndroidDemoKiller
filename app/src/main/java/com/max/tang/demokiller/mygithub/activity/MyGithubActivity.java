@@ -1,8 +1,10 @@
 package com.max.tang.demokiller.mygithub.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +22,7 @@ public class MyGithubActivity extends AppCompatActivity implements MainView {
     private GithubRecyclerAdapter adapter;
 
 
+    @BindView(R.id.activity_main_ctl) CollapsingToolbarLayout mCollapsingToolBarLayout;
     @BindView(R.id.activity_main_toolbar) Toolbar mToolbar;
     @BindView(R.id.sample_list) RecyclerView mRecyclerView;
 
@@ -57,6 +60,10 @@ public class MyGithubActivity extends AppCompatActivity implements MainView {
 
     @Override public void loadData(List<GithubRepo> githubRepoList) {
         adapter.setGithubRepoList(githubRepoList);
-        mToolbar.setTitle("Github" + RestAdapter.Nodes.username);
+        //mToolbar.setTitle("Github" + RestAdapter.Nodes.username);
+        // http://www.jianshu.com/p/2e135628e0fa
+        mCollapsingToolBarLayout.setTitle("Github" + RestAdapter.Nodes.username);
+        mCollapsingToolBarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        mCollapsingToolBarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.colorGuide3));
     }
 }
