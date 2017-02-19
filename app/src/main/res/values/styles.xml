@@ -23,4 +23,13 @@
     <item name="android:paddingTop">10dp</item>
     <item name="android:paddingRight">10dp</item>
   </style>
+
+  <style name="TextAppearance.LobsterBold" parent="android:TextAppearance">
+    <item name="fontPath">fonts/lobster-bold.ttf</item>
+  </style>
+
+  <style name="TextAppearance.LobsterRegular" parent="android:TextAppearance">
+    <item name="fontPath">fonts/lobster-regular.ttf</item>
+  </style>
+
 </resources>

@@ -23,6 +23,7 @@
     <color name="cpb_green_dark">#ff6d9b00</color>
     <color name="cpb_white">@android:color/white</color>
 
+    <color name="primary_color">#2C3B63</color>
     <color name="light_primary_color">#9EEFE5</color>
     <color name="dark_primary_color">#19223a</color>
     <color name="text_icon_color">#efefef</color>

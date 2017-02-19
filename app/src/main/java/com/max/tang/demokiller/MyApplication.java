@@ -6,6 +6,7 @@ import com.max.tang.demokiller.utils.FakeCrashLibrary;
 import com.max.tang.demokiller.utils.log.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by zhihuitang on 2016-11-28.
@@ -15,6 +16,14 @@ public class MyApplication extends MultiDexApplication {
     private static final String TAG = "MyApplication";
     @Override public void onCreate() {
         super.onCreate();
+
+        // https://github.com/chrisjenx/Calligraphy
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+            .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
+            .setFontAttrId(R.attr.fontPath)
+            .build()
+        );
+
         Logger.d(TAG, "onCreate: MyApplication");
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.

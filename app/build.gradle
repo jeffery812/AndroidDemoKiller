@@ -102,4 +102,8 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
 
+    // https://github.com/chrisjenx/Calligraphy
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+
+
 }
