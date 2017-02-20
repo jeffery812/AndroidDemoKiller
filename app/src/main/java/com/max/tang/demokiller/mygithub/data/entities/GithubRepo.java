@@ -9,6 +9,7 @@ public class GithubRepo implements Parcelable {
 	@SerializedName("stargazers_count") private int stargazersCount;
 	@SerializedName("watchers_count") private int watchersCount;
 	@SerializedName("forks_count") private int forksCount;
+	@SerializedName("owner") private Owner owner;
 
 	protected GithubRepo(Parcel in) {
 		name = in.readString();
@@ -72,5 +73,9 @@ public class GithubRepo implements Parcelable {
 		dest.writeInt(stargazersCount);
 		dest.writeInt(watchersCount);
 		dest.writeInt(forksCount);
+	}
+
+	public Owner getOwner() {
+		return owner;
 	}
 }

@@ -11,10 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.mygithub.adapter.GithubRecyclerAdapter;
 import com.max.tang.demokiller.mygithub.data.RestAdapter;
 import com.max.tang.demokiller.mygithub.data.entities.GithubRepo;
+import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.List;
 
 public class MyGithubActivity extends AppCompatActivity implements MainView {
@@ -25,6 +27,7 @@ public class MyGithubActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.activity_main_ctl) CollapsingToolbarLayout mCollapsingToolBarLayout;
     @BindView(R.id.activity_main_toolbar) Toolbar mToolbar;
     @BindView(R.id.sample_list) RecyclerView mRecyclerView;
+    @BindView(R.id.activity_main_civ) CircleImageView mAvatarImage;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,5 +68,8 @@ public class MyGithubActivity extends AppCompatActivity implements MainView {
         mCollapsingToolBarLayout.setTitle("Github" + RestAdapter.Nodes.username);
         mCollapsingToolBarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         mCollapsingToolBarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.colorGuide3));
+        if( githubRepoList != null && !githubRepoList.isEmpty() ) {
+            Glide.with(this).load(githubRepoList.get(0).getOwner().getAvatar_url()).into(mAvatarImage);
+        }
     }
 }
