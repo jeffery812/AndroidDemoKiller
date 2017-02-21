@@ -22,7 +22,7 @@ public class ApiManager implements RestAdapter {
 	private retrofit.RestAdapter initRestAdapter() {
 		return new retrofit.RestAdapter.Builder().
 			setLogLevel(retrofit.RestAdapter.LogLevel.FULL).
-			setLog(new AndroidLog("TEST")).
+			setLog(new AndroidLog("github")).
 			setRequestInterceptor(requestInterceptor).
 			setEndpoint(Constants.REST_ENDPOINT).
 			build();
