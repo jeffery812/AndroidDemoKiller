@@ -8,6 +8,11 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="AppTheme.NoActionBar.Launcher" parent="AppTheme.NoActionBar">
+    <!-- https://plus.google.com/+AndroidDevelopers/posts/Z1Wwainpjhd, Use cold start time effectively with a branded launch theme -->
+    <item name="android:windowBackground">@drawable/launch_screen</item>
+  </style>
+
   <style name="AppTheme.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
