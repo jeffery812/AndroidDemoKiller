@@ -35,7 +35,9 @@ public class SortActivity extends BaseActivity implements SortView {
 
         Intent intent = getIntent();
         Uri uri = intent.getData();
-        Logger.d("data in intent: " + uri.toString());
+        if( uri != null ) {
+            Logger.d("data in intent: " + uri.toString());
+        }
 
         mSortAlog = new SortAlgo();
         reset();
