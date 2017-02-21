@@ -29,7 +29,12 @@ public class NavigationActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /**
+         * https://plus.google.com/+AndroidDevelopers/posts/Z1Wwainpjhd
+         * replacing that custom theme with the standard theme before calling super.onCreate()
+         */
         setTheme(R.style.AppTheme_NoActionBar);
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
