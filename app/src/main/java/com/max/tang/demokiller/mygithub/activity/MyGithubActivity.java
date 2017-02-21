@@ -32,9 +32,13 @@ public class MyGithubActivity extends AppCompatActivity implements MainView {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_github);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        ButterKnife.bind(this);
+
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        mToolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         /*
         fab.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +54,6 @@ public class MyGithubActivity extends AppCompatActivity implements MainView {
             .setAction("Action", null)
             .show());
 
-        ButterKnife.bind(this);
 
         adapter = new GithubRecyclerAdapter(this);
         mRecyclerView.setHasFixedSize(true);

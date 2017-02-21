@@ -38,7 +38,7 @@
           android:layout_width="match_parent"
           android:layout_height="?attr/actionBarSize"
           android:textAppearance="@style/TextAppearance.LobsterBold"
-          app:layout_scrollFlags="scroll"
+          app:layout_collapseMode="pin"
           >
 
       </android.support.v7.widget.Toolbar>
