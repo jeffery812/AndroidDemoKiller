@@ -11,4 +11,10 @@
     <attr name="borderRadius"/>
     <attr name="type"/>
   </declare-styleable>
+
+  <declare-styleable name="CircularIndicatorView">
+    <!--声明我们的属性，名称为default_size,取值类型为尺寸类型（dp,px等）-->
+    <attr format="dimension" name="default_size"/>
+    <attr format="color" name="background_color"/>
+  </declare-styleable>
 </resources>

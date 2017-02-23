@@ -126,6 +126,7 @@ public class MessActivity extends AppCompatActivity {
 
     public void startService(View view) {
         Intent startIntent = new Intent(this, DemoService.class);
+        startIntent.putExtra("start_counter", 1000);
         startService(startIntent);
     }
 
