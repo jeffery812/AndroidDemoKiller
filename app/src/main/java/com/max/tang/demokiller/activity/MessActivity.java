@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.service.DemoService;
+import com.max.tang.demokiller.utils.SPUtils;
 import com.max.tang.demokiller.utils.log.Logger;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -126,7 +127,9 @@ public class MessActivity extends AppCompatActivity {
 
     public void startService(View view) {
         Intent startIntent = new Intent(this, DemoService.class);
-        startIntent.putExtra("start_counter", 1000);
+        startIntent.putExtra(DemoService.START_COUNTER, 10000);
+        SPUtils.remove(this, DemoService.RETRY_TIME);
+
         startService(startIntent);
     }
 

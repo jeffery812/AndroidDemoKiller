@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.activity.NavigationActivity;
+import com.max.tang.demokiller.utils.SPUtils;
 import com.max.tang.demokiller.utils.log.Logger;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
@@ -21,7 +22,12 @@ import rx.Subscriber;
  */
 
 public class DemoService extends Service{
-    final String TAG = "service-demo";
+    private final String TAG = "service-demo";
+    public static String RETRY_TIME = "retry_time";
+    public static String START_COUNTER = "start_counter";
+    private int retryTime = 0;
+    private int AMOUNT = 3600;
+    private long currentCounter = 0;
 
     @Override
     public void onCreate() {
@@ -34,42 +40,52 @@ public class DemoService extends Service{
 
         int startCounter = 0;
         if( intent != null && intent.getExtras() != null){
-            startCounter = intent.getExtras().getInt("start_counter",0);
+            startCounter = intent.getExtras().getInt(START_COUNTER,0);
         }
+        retryTime = (int)SPUtils.get(this, RETRY_TIME, 0);
+        retryTime++;
+        SPUtils.put(this, RETRY_TIME, retryTime);
 
         Logger.d(TAG, "onStartCommand() executed : " + startCounter);
         final int offset = startCounter;
         Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
+            .take(AMOUNT)
             .subscribe(new Subscriber<Long>() {
                 @Override public void onCompleted() {
-
+                    notifyUI("service complete");
+                    stopSelf();
                 }
 
                 @Override public void onError(Throwable e) {
-
+                    notifyUI("service failed");
+                    stopSelf();
                 }
 
                 @Override public void onNext(Long aLong) {
-
                     final long v = aLong + offset;
-                    notifyUI(v);
+                    notifyUI("service is running", v);
                     Logger.d("service is running: " + v);
                 }
             });
         //return super.onStartCommand(intent, flags, startId);
+        // http://stackoverflow.com/questions/36188851/android-start-redeliver-intent-takes-a-long-time-hours-to-restart-service?rq=1
         return START_REDELIVER_INTENT;
         //return START_NOT_STICKY;
         //return START_STICKY;
     }
 
-    public void notifyUI(final long count) {
+    public void notifyUI(final String text) {
+        notifyUI(text, currentCounter);
+    }
+    public void notifyUI(final String text, final long count) {
+        currentCounter = count;
         Bitmap btm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         NotificationCompat.Builder builder =
             new NotificationCompat.Builder(this).setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Service is running")
+                .setContentTitle(text)
                 .setContentText("counter: " + count);
         builder.setTicker("New message");//第一次提示消息的时候显示在通知栏上
-        builder.setNumber(12);
+        builder.setNumber(retryTime);
         builder.setLargeIcon(btm);
         builder.setAutoCancel(true);//自己维护通知的消失
 
