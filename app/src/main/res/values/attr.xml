@@ -15,6 +15,9 @@
   <declare-styleable name="CircularIndicatorView">
     <!--声明我们的属性，名称为default_size,取值类型为尺寸类型（dp,px等）-->
     <attr format="dimension" name="default_size"/>
-    <attr format="color" name="background_color"/>
+    <attr format="color" name="color1"/>
+    <attr format="color" name="color2"/>
+    <attr format="color" name="color3"/>
+    <attr format="color" name="color4"/>
   </declare-styleable>
 </resources>

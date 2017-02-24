@@ -7,9 +7,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.SweepGradient;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import com.max.tang.demokiller.R;
+import com.max.tang.demokiller.utils.log.Logger;
+import java.util.Locale;
 
 /**
  * Created by siarhei on 2016-10-04.
@@ -17,15 +21,24 @@ import com.max.tang.demokiller.R;
 
 public class CircularIndicatorView extends View {
 
-    private Paint mPaint = new Paint();
-    private int backgroundColor;
-    private int defalutSize;
-    private float mRadius = 0;
+    private Paint mPaintCircle, mPaintArch;
     private int mWidth, mHeight;
     private int strokeWidth = 40;
     private float scale = 0.8f;
-    private int segments[] = {40, 60, 80};
-    private int colors[] = {Color.RED, Color.YELLOW, Color.GREEN};
+    private int color1, color2, color3, color4;
+    private float segments[] = { 20f, 60f, 80f };
+    private float position1 = 0.4f, position2 = 0.6f, position3 = 0.8f;
+    private int colors[] = {
+        R.color.colorBad, R.color.colorBad, R.color.colorPoor, R.color.colorPoor, R.color.colorGood,
+        R.color.colorGood, R.color.colorExcellent, R.color.colorExcellent
+    };
+    private float mCenter[] = {0f,0f};
+    private float positions[] =
+        { 0, position1, position1, position2, position2, position3, position3, 1f };
+    RectF rectBlackBg;
+    /**
+     * 1 ... 100
+     */
     private int mCurrentPercentage = 0;
     private int mAngleStart = 150;
     private int mAngleTotal = 240;
@@ -38,133 +51,115 @@ public class CircularIndicatorView extends View {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircularIndicatorView);
 
         //第一个参数为属性集合里面的属性，R文件名称：R.styleable+属性集合名称+下划线+属性名称
-        //第二个参数为，如果没有设置这个属性，则设置的默认的值
-        defalutSize = a.getDimensionPixelSize(R.styleable.CircularIndicatorView_default_size, 100);
+        color1 = a.getColor(R.styleable.CircularIndicatorView_color1, ContextCompat.getColor(getContext(), R.color.colorBad));
+        color2 = a.getColor(R.styleable.CircularIndicatorView_color2, ContextCompat.getColor(getContext(), R.color.colorPoor));
+        color3 = a.getColor(R.styleable.CircularIndicatorView_color3, ContextCompat.getColor(getContext(), R.color.colorGood));
+        color4 = a.getColor(R.styleable.CircularIndicatorView_color4, ContextCompat.getColor(getContext(), R.color.colorExcellent));
 
-        backgroundColor =
-            a.getColor(R.styleable.CircularIndicatorView_background_color, Color.WHITE);
-
+        init();
         //最后记得将TypedArray对象回收
         a.recycle();
+    }
+
+    private void init(){
+        mPaintCircle = new Paint();
+        mPaintCircle.setAntiAlias(true);
+        mPaintCircle.setStrokeWidth((float) strokeWidth);
+        mPaintCircle.setStyle(Paint.Style.STROKE);
+        //mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaintCircle.setColor(Color.LTGRAY);
+
+
+        mPaintArch = new Paint();
+        mPaintArch.setAntiAlias(true);
+        mPaintArch.setStyle(Paint.Style.STROKE);
+        mPaintArch.setStrokeWidth(strokeWidth + 10);
+
+        rectBlackBg = new RectF();
+
+    }
+    private void calculateColors() {
+        //color1 = ContextCompat.getColor(getContext(), R.color.colorBad);
+        //color2 = ContextCompat.getColor(getContext(), R.color.colorPool);
+        //color3 = ContextCompat.getColor(getContext(), R.color.colorGood);
+        //color4 = ContextCompat.getColor(getContext(), R.color.colorExcellent);
+
+        colors[0] = color1;
+        colors[1] = color1;
+        colors[2] = color2;
+        colors[3] = color2;
+        colors[4] = color3;
+        colors[5] = color3;
+        colors[6] = color4;
+        colors[7] = color4;
+
+        position1 = (segments[0]/100) * mAngleTotal / 360;
+        position2 = (segments[1]/100) * mAngleTotal / 360;
+        position3 = (segments[2]/100) * mAngleTotal / 360;
+
+        positions[0] = 0f;
+        positions[1] = position1;
+        positions[2] = position1;
+        positions[3] = position2;
+        positions[4] = position2;
+        positions[5] = position3;
+        positions[6] = position3;
+        positions[7] = 1f;
+
+    }
+
+    public void setSegments(float[] segments) {
+        this.segments = segments;
     }
 
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int r = getMeasuredWidth() / 2 - 50;
+        calculateColors();
 
-        int centerX = mWidth / 2;
-        int centerY = mHeight / 2;
+        mCenter[0] = mWidth / 2;
+        mCenter[1] = mHeight / 2;
 
         scale = scale > 1 ? 1 : scale;
-
-        //mPaint.setColor(backgroundColor);
-        //canvas.drawCircle(centerX, centerY, r, mPaint);
 
         int size = (int) (1.0 * Math.min(mHeight, mWidth) * scale);
 
         float padding = strokeWidth / 2;
-        mPaint.setAntiAlias(true);
-        mPaint.setStrokeWidth((float) strokeWidth);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setColor(Color.LTGRAY);
+        rectBlackBg.set(mCenter[0] - size / 2 + padding, mCenter[1] - size / 2 + padding,
+            mCenter[0] + size / 2 - padding, mCenter[1] + size / 2 - padding);
+        canvas.drawArc(rectBlackBg, 0, 360, false, mPaintCircle);
 
-        RectF rectBlackBg = new RectF(centerX - size / 2 + padding, centerY - size / 2 + padding,
-            centerX + size / 2 - padding, centerY + size / 2 - padding);
-        canvas.drawArc(rectBlackBg, 0, 360, false, mPaint);
+        canvas.rotate(mAngleStart, mCenter[0], mCenter[1]);
 
-
-        mPaint.setColor(getStrokeColor(mCurrentPercentage));
-        mPaint.setStrokeWidth(strokeWidth + 10);
-        mCurrentPercentage++;
-        mCurrentPercentage = Math.min(mCurrentPercentage, 100);
-        canvas.drawArc(rectBlackBg, mAngleStart, mAngleStart + mAngleTotal*mCurrentPercentage/100, false, mPaint);
-        if( mCurrentPercentage < 100 ) {
-            //invalidate();
-        }
+        SweepGradient
+            sweepGradient = new SweepGradient(mCenter[0], mCenter[1], colors, positions);
+        mPaintArch.setShader(sweepGradient);
+        //
+        canvas.drawArc(rectBlackBg, 0, mCurrentPercentage * mAngleTotal / 100, false, mPaintArch);
     }
 
-    public void setValue(int value){
-        
+
+    public void setValue(int value) {
+        value = value > 100 ? 100 : value;
+        value = value < 0 ? 0 : value;
+        setAnimation(mCurrentPercentage, value, 1000);
     }
 
     private void setAnimation(int last, int current, int length) {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(last, current);
+        Logger.d(String.format(Locale.getDefault(), "setAnimation %d -> %d, %d", last, current, length));
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(last, current);
         valueAnimator.setDuration(length);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override public void onAnimationUpdate(ValueAnimator animation) {
-                mCurrentPercentage = (int)animation.getAnimatedValue();
+                mCurrentPercentage = (int) animation.getAnimatedValue();
                 invalidate();
             }
         });
         valueAnimator.start();
     }
 
-    private int getStrokeColor(int percentage){
-        int color = colors[colors.length-1];
-        for( int i = 0; i < segments.length; i++ ){
-            if( percentage < segments[i]){
-                color = colors[i];
-            }else{
-                break;
-            }
-        }
-        return color;
-    }
-
-    private int getSegmentIndex(int percentage){
-        int ret = segments[0];
-
-        for (int segment:segments) {
-            if( percentage < segment) {
-                ret = segment;
-            }else{
-                break;
-            }
-        }
-
-        return ret;
-    }
-    private void roundRect(Canvas canvas) {
-        RectF rect = new RectF(150, 20, 300, 200);
-        canvas.drawRoundRect(rect, 30, //x轴的半径
-            30, //y轴的半径
-            mPaint);
-    }
-
-    private void test(Canvas canvas, boolean useCenter) {
-        mPaint.setStyle(Paint.Style.STROKE);
-        RectF rectf_head = new RectF(10, 10, 100, 100);//确定外切矩形范围
-        rectf_head.offset(10, 20);//使rectf_head所确定的矩形向右偏移100像素，向下偏移20像素
-        canvas.drawArc(rectf_head, -10, -460, useCenter, mPaint);//绘制圆弧，含圆心
-    }
-
-    private void test2(Canvas canvas) {
-        RectF rect = new RectF(0, 0, 100, 100);
-
-        canvas.drawArc(rect, //弧线所使用的矩形区域大小
-            30,  //开始角度
-            -240, //扫过的角度
-            false, //是否使用中心
-            mPaint);
-    }
-
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        /*
-        mWidth = getMySize(100, widthMeasureSpec);
-        mHeight = getMySize(100, heightMeasureSpec);
-
-        if (mWidth < mHeight) {
-            mHeight = mWidth;
-        } else {
-            mWidth = mHeight;
-        }
-
-        setMeasuredDimension(mWidth, mHeight);
-        */
 
         int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -180,6 +175,7 @@ public class CircularIndicatorView extends View {
         } else {
             mHeight = heightSpecSize;
         }
+
     }
 
     private int dipToPx(int dip) {
@@ -189,6 +185,11 @@ public class CircularIndicatorView extends View {
 
     @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        SweepGradient
+            sweepGradient = new SweepGradient(w/2, h/2, colors, positions);
+
+        Logger.d(String.format(Locale.getDefault(), "onSizeChanged1: %d, %d", w, h));
+
     }
 
     private int getMySize(int defaultSize, int measureSpec) {

@@ -21,7 +21,7 @@
       android:layout_height="match_parent"
       >
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
@@ -41,27 +41,42 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
-          android:padding="10dp"
           >
         <com.max.tang.demokiller.view.CircularIndicatorView
             android:id="@+id/circularView"
             android:layout_width="150dp"
             android:layout_height="250dp"
             android:background="@color/secondary_text"
-            tang:background_color="@color/colorPrimary"
+            tang:color1="@color/colorBad"
+            tang:color2="@color/colorPoor"
             />
         <View
-            android:layout_width="20dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             />
-        <com.max.tang.demokiller.view.RoundImageView
+        <com.max.tang.demokiller.view.CircleGradientProgressbar
+            android:id="@+id/circle_gradient_bar"
+            android:background="@color/secondary_text"
             android:layout_width="150dp"
             android:layout_height="250dp"
-            android:background="@color/cpb_blue"
-            app:type="round"
             />
 
+
       </LinearLayout>
+      <EditText
+          android:id="@+id/edit_value"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"
+          />
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="set value"
+          android:onClick="setValue"
+          />
+
+
     </LinearLayout>
   </ScrollView>
 </LinearLayout>

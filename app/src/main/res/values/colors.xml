@@ -8,6 +8,10 @@
     <color name="colorGuide2">#0ea60b</color>
     <color name="colorGuide3">#d1763e</color>
     <color name="colorGuide4">#5f109f</color>
+    <color name="colorBad">#D0021B</color>
+    <color name="colorPoor">#FF9B00</color>
+    <color name="colorGood">#80D423</color>
+    <color name="colorExcellent">#5DB100</color>
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
