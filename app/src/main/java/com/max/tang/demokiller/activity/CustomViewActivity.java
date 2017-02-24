@@ -23,7 +23,7 @@ public class CustomViewActivity extends BaseActivity {
 
         gaugeView.setScore(80);
         circularView.setValue(80);
-        final float segments[] = {40, 60, 80};
+        final float segments[] = {0, 40, 60, 80};
         circularView.setSegments(segments);
         circleGradientProgressbar.setProgress(80);
         //circularView.setPercentage(80);
