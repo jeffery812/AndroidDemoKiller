@@ -1,8 +1,7 @@
 package com.max.tang.demokiller.activity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.SeekBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.max.tang.demokiller.R;
@@ -13,8 +12,8 @@ import com.max.tang.demokiller.view.CircularIndicatorView;
 public class CustomViewActivity extends BaseActivity {
     @BindView(R.id.gaugeView) GaugeView gaugeView;
     @BindView(R.id.circularView) CircularIndicatorView circularView;
-    @BindView(R.id.edit_value) EditText editValue;
     @BindView(R.id.circle_gradient_bar) CircleGradientProgressbar circleGradientProgressbar;
+    @BindView(R.id.seek_bar) SeekBar seekBar;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,17 +23,25 @@ public class CustomViewActivity extends BaseActivity {
 
         gaugeView.setScore(80);
         circularView.setValue(80);
-        final float segments[] = {10, 40, 90};
+        final float segments[] = {40, 60, 80};
         circularView.setSegments(segments);
         circleGradientProgressbar.setProgress(80);
         //circularView.setPercentage(80);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                circularView.setValue(progress);
+                circleGradientProgressbar.setProgress(progress);
+            }
 
-    }
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {
 
-    public void setValue(View view) {
-        final String text = editValue.getText().toString();
-        final int value = text.isEmpty() ? 0 : Integer.valueOf(text);
-        circularView.setValue(value);
-        circleGradientProgressbar.setProgress(value);
+            }
+
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
 }

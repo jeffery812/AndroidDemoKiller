@@ -24,17 +24,16 @@ public class CircularIndicatorView extends View {
     private Paint mPaintCircle, mPaintArch;
     private int mWidth, mHeight;
     private int strokeWidth = 40;
-    private float scale = 0.8f;
+    private float scale = 0.9f;
     private int color1, color2, color3, color4;
-    private float segments[] = { 20f, 60f, 80f };
-    private float position1 = 0.4f, position2 = 0.6f, position3 = 0.8f;
+    private float segments[] = { 40f, 60f, 80f };
     private int colors[] = {
         R.color.colorBad, R.color.colorBad, R.color.colorPoor, R.color.colorPoor, R.color.colorGood,
         R.color.colorGood, R.color.colorExcellent, R.color.colorExcellent
     };
     private float mCenter[] = {0f,0f};
     private float positions[] =
-        { 0, position1, position1, position2, position2, position3, position3, 1f };
+        { 0, segments[0], segments[0], segments[1], segments[1], segments[2], segments[2], 1f };
     RectF rectBlackBg;
     /**
      * 1 ... 100
@@ -79,11 +78,6 @@ public class CircularIndicatorView extends View {
 
     }
     private void calculateColors() {
-        //color1 = ContextCompat.getColor(getContext(), R.color.colorBad);
-        //color2 = ContextCompat.getColor(getContext(), R.color.colorPool);
-        //color3 = ContextCompat.getColor(getContext(), R.color.colorGood);
-        //color4 = ContextCompat.getColor(getContext(), R.color.colorExcellent);
-
         colors[0] = color1;
         colors[1] = color1;
         colors[2] = color2;
@@ -93,9 +87,9 @@ public class CircularIndicatorView extends View {
         colors[6] = color4;
         colors[7] = color4;
 
-        position1 = (segments[0]/100) * mAngleTotal / 360;
-        position2 = (segments[1]/100) * mAngleTotal / 360;
-        position3 = (segments[2]/100) * mAngleTotal / 360;
+        float position1 = (segments[0]/100) * mAngleTotal / 360;
+        float position2 = (segments[1]/100) * mAngleTotal / 360;
+        float position3 = (segments[2]/100) * mAngleTotal / 360;
 
         positions[0] = 0f;
         positions[1] = position1;
@@ -185,34 +179,7 @@ public class CircularIndicatorView extends View {
 
     @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        SweepGradient
-            sweepGradient = new SweepGradient(w/2, h/2, colors, positions);
-
         Logger.d(String.format(Locale.getDefault(), "onSizeChanged1: %d, %d", w, h));
 
-    }
-
-    private int getMySize(int defaultSize, int measureSpec) {
-        int mySize = defaultSize;
-
-        int mode = MeasureSpec.getMode(measureSpec);
-        int size = MeasureSpec.getSize(measureSpec);
-
-        switch (mode) {
-            case MeasureSpec.UNSPECIFIED: {//如果没有指定大小，就设置为默认大小
-                mySize = defaultSize;
-                break;
-            }
-            case MeasureSpec.AT_MOST: {//如果测量模式是最大取值为size
-                //我们将大小取最大值,你也可以取其他值
-                mySize = size;
-                break;
-            }
-            case MeasureSpec.EXACTLY: {//如果是固定的大小，那就不要去改变它
-                mySize = size;
-                break;
-            }
-        }
-        return mySize;
     }
 }

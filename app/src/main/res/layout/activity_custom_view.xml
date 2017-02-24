@@ -44,38 +44,31 @@
           >
         <com.max.tang.demokiller.view.CircularIndicatorView
             android:id="@+id/circularView"
-            android:layout_width="150dp"
-            android:layout_height="250dp"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
             android:background="@color/secondary_text"
+            android:layout_weight="1"
+            android:layout_marginEnd="2dp"
             tang:color1="@color/colorBad"
             tang:color2="@color/colorPoor"
-            />
-        <View
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
             />
         <com.max.tang.demokiller.view.CircleGradientProgressbar
             android:id="@+id/circle_gradient_bar"
             android:background="@color/secondary_text"
-            android:layout_width="150dp"
-            android:layout_height="250dp"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
             />
 
 
       </LinearLayout>
-      <EditText
-          android:id="@+id/edit_value"
+      <SeekBar
+          android:id="@+id/seek_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="number"
+          android:max="100"
           />
-      <Button
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="set value"
-          android:onClick="setValue"
-          />
-
 
     </LinearLayout>
   </ScrollView>
