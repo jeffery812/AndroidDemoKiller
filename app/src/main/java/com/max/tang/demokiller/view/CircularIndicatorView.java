@@ -103,11 +103,11 @@ public class CircularIndicatorView extends View {
 
         positions[0] = 0f;
         positions[1] = position1;
-        positions[2] = position1;
+        positions[2] = position1-1;
         positions[3] = position2;
-        positions[4] = position2;
+        positions[4] = position2-1;
         positions[5] = position3;
-        positions[6] = position3;
+        positions[6] = position3-1;
         positions[7] = 1f;
     }
 
@@ -127,7 +127,6 @@ public class CircularIndicatorView extends View {
         drawIndicator(canvas);
 
         drawEndPoint(canvas);
-
     }
 
     private void drawInnerCircle(Canvas canvas) {
@@ -166,16 +165,17 @@ public class CircularIndicatorView extends View {
         }
 
         mPaintCircle.setColor(color);
-        mPaintCircle.setStrokeWidth(strokeWidth*1.5f);
+        mPaintCircle.setStrokeWidth(strokeWidth * 1.5f);
         canvas.rotate(mCurrentPercentage * mAngleTotal / 100, mCenter[0], mCenter[1]);
         canvas.drawCircle(mCenter[0] + diameter / 2 - strokeWidth / 2, mCenter[1], 1f,
             mPaintCircle);
     }
 
-
     private void drawText(Canvas canvas) {
-        canvas.drawText(String.format(Locale.getDefault(), "%d%%", mCurrentPercentage), mCenter[0], mCenter[1], mPaintText);
+        canvas.drawText(String.format(Locale.getDefault(), "%d%%", mCurrentPercentage), mCenter[0],
+            mCenter[1], mPaintText);
     }
+
     public void setValue(int value) {
         value = value > 100 ? 100 : value;
         value = value < 0 ? 0 : value;
