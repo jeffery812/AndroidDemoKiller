@@ -51,6 +51,7 @@ public class CircularIndicatorView extends View {
         //即属性集合的标签，在R文件中名称为R.styleable+name
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircularIndicatorView);
 
+        mCurrentPercentage = a.getInt(R.styleable.CircularIndicatorView_value, 80);
         segmentColors[0] = a.getColor(R.styleable.CircularIndicatorView_color1,
             ContextCompat.getColor(getContext(), R.color.colorBad));
         segmentColors[1] = a.getColor(R.styleable.CircularIndicatorView_color2,

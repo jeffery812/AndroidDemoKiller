@@ -49,8 +49,9 @@
             android:background="@color/secondary_text"
             android:layout_weight="1"
             android:layout_marginEnd="2dp"
-            tang:color1="@color/colorBad"
-            tang:color2="@color/colorPoor"
+            app:value="80"
+            app:color1="@color/colorBad"
+            app:color2="@color/colorPoor"
             />
         <com.max.tang.demokiller.view.CircleGradientProgressbar
             android:id="@+id/circle_gradient_bar"
@@ -69,6 +70,30 @@
           android:layout_height="wrap_content"
           android:max="100"
           />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
+        <com.max.tang.demokiller.view.WatchView
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="2dp"
+            android:background="@color/secondary_text"
+            android:layout_weight="1"
+            app:board_color="@color/colorWhite"
+            app:text_size = "12sp"
+            />
+        <com.max.tang.demokiller.view.WatchView
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="2dp"
+            android:background="@color/secondary_text"
+            android:layout_weight="1"
+            app:board_color="@color/cpb_blue"
+            app:text_size="14sp"
+            />
+      </LinearLayout>
 
     </LinearLayout>
   </ScrollView>

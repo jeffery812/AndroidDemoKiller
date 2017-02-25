@@ -9,16 +9,15 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-
-import java.util.Calendar;
-
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.utils.SizeUtil;
 import com.max.tang.demokiller.utils.log.Logger;
+import java.util.Calendar;
 
 /**
  * 自定义View实现表盘
  * Created by brioal on 16-7-28.
+ * http://www.10tiao.com/html/227/201611/2650237537/1.html
  */
 
 public class WatchBoard extends View {

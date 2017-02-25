@@ -12,9 +12,34 @@
     <attr name="type"/>
   </declare-styleable>
 
+  <declare-styleable name="WatchView">
+    <attr format="color" name="board_color"/>
+    <attr format="color" name="border_color"/>
+    <attr format="dimension" name="text_size"/>
+    <attr format="dimension" name="hour_pointer_width"/>
+    <!--分针的宽度-->
+    <attr format="dimension" name="minute_pointer_width"/>
+    <!--秒针的宽度-->
+    <attr format="dimension" name="second_pointer_width"/>
+    <!--指针圆角值-->
+    <attr format="dimension" name="pointer_corner_radius"/>
+    <!--指针超过中心点的长度-->
+    <attr format="dimension" name="pointer_end_length"/>
+
+    <attr format="color" name="scale_long_color"/>
+    <!--非时刻刻度颜色-->
+    <attr format="color" name="scale_short_color"/>
+    <!--时针颜色-->
+    <attr format="color" name="hour_pointer_color"/>
+    <!--分针颜色-->
+    <attr format="color" name="minute_pointer_color"/>
+    <!--秒针颜色-->
+    <attr format="color" name="second_pointer_color"/>
+  </declare-styleable>
   <declare-styleable name="CircularIndicatorView">
     <!--声明我们的属性，名称为default_size,取值类型为尺寸类型（dp,px等）-->
     <attr format="dimension" name="default_size"/>
+    <attr format="integer" name="value"/>
     <attr format="color" name="color1"/>
     <attr format="color" name="color2"/>
     <attr format="color" name="color3"/>
