@@ -8,6 +8,7 @@ import android.test.suitebuilder.annotation.LargeTest;
 
 import com.max.tang.demokiller.R;
 
+import com.max.tang.demokiller.main.activity.NavigationActivity;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;

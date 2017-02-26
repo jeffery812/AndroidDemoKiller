@@ -1,8 +1,9 @@
-package com.max.tang.demokiller.activity;
+package com.max.tang.demokiller.main.activity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -15,17 +16,32 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.ConnectionResult;
 import com.max.tang.demokiller.R;
+import com.max.tang.demokiller.activity.BaseActivity;
 import com.max.tang.demokiller.fragment.DemoListFragment;
 import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.fragment.PlusOneFragment;
+import com.max.tang.demokiller.main.model.GoogleSignIn;
+import com.max.tang.demokiller.main.model.SignIn;
+import com.max.tang.demokiller.main.model.SignInView;
 import com.max.tang.demokiller.utils.log.Logger;
 
 public class NavigationActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         PlusOneFragment.OnFragmentInteractionListener,
-        OnFragmentInteractionListener {
+        OnFragmentInteractionListener, SignInView {
+
+    TextView textViewTitle;
+    TextView textViewSubtitle;
+    ImageView imageProfile;
+    SignIn mSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +81,15 @@ public class NavigationActivity extends BaseActivity
 
         ButterKnife.bind(this);
         Logger.d("onCreate");
+
+
+        textViewTitle =
+            (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_title);
+        textViewSubtitle =
+            (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_subtitle);
+        imageProfile = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.image_profile);
+        mSignIn = new GoogleSignIn(this, this);
+        mSignIn.signInSilently();
 
     }
 
@@ -119,10 +144,10 @@ public class NavigationActivity extends BaseActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.sign_in) {
+            mSignIn.signIn();
+        } else if (id == R.id.sign_out) {
+            mSignIn.signOut();
         }
         ft.commit();
 
@@ -141,5 +166,35 @@ public class NavigationActivity extends BaseActivity
         Intent intent = new Intent(this, className);
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left, R.anim.slide_out_left);
+    }
+
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mSignIn.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        mSignIn.onConnectionFailed(connectionResult);
+    }
+
+    @Override public void signInSucceed(GoogleSignInAccount account) {
+        textViewTitle.setText(account.getDisplayName());
+        textViewSubtitle.setText(account.getEmail());
+        if( account.getPhotoUrl() != null ) {
+            Glide.with(this).load(account.getPhotoUrl()).into(imageProfile);
+        }
+
+        Toast.makeText(this, "Sign-In succeed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void signInFailed() {
+        Toast.makeText(this, "Sign-In failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void signedOut() {
+        textViewTitle.setText("Click Menu to SignIn");
+        textViewSubtitle.setText("not signed in");
+        imageProfile.setImageDrawable(null);
+        Toast.makeText(this, "User Signed-Out succeed", Toast.LENGTH_SHORT).show();
     }
 }

@@ -10,7 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import com.max.tang.demokiller.R;
-import com.max.tang.demokiller.activity.NavigationActivity;
+import com.max.tang.demokiller.main.activity.NavigationActivity;
 import com.max.tang.demokiller.utils.SPUtils;
 import com.max.tang.demokiller.utils.log.Logger;
 import java.util.concurrent.TimeUnit;

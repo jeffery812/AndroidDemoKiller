@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "438083595361",
+    "project_id": "firebase-demokiller"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438083595361:android:2ea733ede60e7a1a",
+        "android_client_info": {
+          "package_name": "com.max.tang.demokiller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438083595361-d4nifbpco94hmjpo6artk1ioatur7tc0.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "438083595361-qk8atl2k4eguav5j1lm58u9c1s7s6vid.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.max.tang.demokiller",
+            "certificate_hash": "bb9485a2bdf13396913f1801f3dff0fd5dbedf12"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqHwoJz8l2me_TWi2rIx32ybzuVaVy2HM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

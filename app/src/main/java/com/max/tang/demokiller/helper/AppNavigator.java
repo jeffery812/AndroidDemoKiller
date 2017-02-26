@@ -3,7 +3,7 @@ package com.max.tang.demokiller.helper;
 import android.content.Context;
 import android.content.Intent;
 
-import com.max.tang.demokiller.activity.NavigationActivity;
+import com.max.tang.demokiller.main.activity.NavigationActivity;
 
 
 public class AppNavigator {
