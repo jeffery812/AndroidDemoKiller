@@ -3,15 +3,19 @@ package com.max.tang.demokiller.view;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import com.max.tang.demokiller.R;
+import com.max.tang.demokiller.utils.SizeUtil;
 import com.max.tang.demokiller.utils.log.Logger;
 import java.util.Locale;
 
@@ -23,8 +27,8 @@ public class CircularIndicatorView extends View {
 
     private Paint mPaintCircle, mPaintArch, mPaintText;
     private int mWidth, mHeight;
-    private int strokeWidth = 30;
-    private float scale = 0.9f;
+    private int strokeWidth = 20;
+    private float scale = 0.82f;
     //private int color1, color2, color3, color4;
     private int segmentColors[] = new int[4];
     private float segments[] = { 0f, 40f, 60f, 80f };
@@ -43,6 +47,9 @@ public class CircularIndicatorView extends View {
     private int mCurrentPercentage = 0;
     private int mAngleStart = 150;
     private int mAngleTotal = 240;
+
+    private Bitmap image;
+    private Rect imageRect;
 
     public CircularIndicatorView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -86,6 +93,10 @@ public class CircularIndicatorView extends View {
         mPaintText.setAntiAlias(true);//抗锯齿功能
         //        vTextPaint.setStrokeWidth((float) 3.0);
         mPaintText.setTextAlign(Paint.Align.CENTER);
+
+        image = BitmapFactory.decodeResource(getResources(), R.drawable.gauge);
+
+        imageRect = new Rect(0,0,(int)DptoPx(202),(int)DptoPx(132));
     }
 
     private void calculateColors() {
@@ -127,9 +138,13 @@ public class CircularIndicatorView extends View {
 
         drawIndicator(canvas);
 
-        drawEndPoint(canvas);
+        drawBackground(canvas);
     }
 
+    private void drawBackground(Canvas canvas){
+        imageRect = new Rect(mWidth/2 - (int)DptoPx(202)/2, mHeight/2 - (int)DptoPx(132)/2, mWidth/2 + (int)DptoPx(202)/2, mHeight/2 + (int)DptoPx(132)/2);
+        canvas.drawBitmap(image, null, imageRect, null);
+    }
     private void drawInnerCircle(Canvas canvas) {
         mCenter[0] = mWidth / 2;
         mCenter[1] = mHeight / 2;
@@ -143,19 +158,24 @@ public class CircularIndicatorView extends View {
         float padding = strokeWidth / 2;
         rectBlackBg.set(mCenter[0] - diameter / 2 + padding, mCenter[1] - diameter / 2 + padding,
             mCenter[0] + diameter / 2 - padding, mCenter[1] + diameter / 2 - padding);
-        canvas.drawArc(rectBlackBg, 0, 360, false, mPaintCircle);
+        //canvas.drawArc(rectBlackBg, 0, 360, false, mPaintCircle);
     }
 
     private void drawIndicator(Canvas canvas) {
+        canvas.save();
+
+        canvas.translate(0, 100);
         canvas.rotate(mAngleStart, mCenter[0], mCenter[1]);
+
+        mPaintCircle.setStrokeWidth(strokeWidth);
 
         SweepGradient sweepGradient = new SweepGradient(mCenter[0], mCenter[1], colors, positions);
         mPaintArch.setShader(sweepGradient);
         //
         canvas.drawArc(rectBlackBg, 0, mCurrentPercentage * mAngleTotal / 100, false, mPaintArch);
-    }
 
-    private void drawEndPoint(Canvas canvas) {
+
+        // draw end point
         int color = segmentColors[0];
         for (int i = 0; i < segments.length; i++) {
             if (mCurrentPercentage > segments[i]) {
@@ -170,7 +190,10 @@ public class CircularIndicatorView extends View {
         canvas.rotate(mCurrentPercentage * mAngleTotal / 100, mCenter[0], mCenter[1]);
         canvas.drawCircle(mCenter[0] + diameter / 2 - strokeWidth / 2, mCenter[1], 1f,
             mPaintCircle);
+
+        canvas.restore();
     }
+
 
     private void drawText(Canvas canvas) {
         canvas.drawText(String.format(Locale.getDefault(), "%d%%", mCurrentPercentage), mCenter[0],
@@ -220,6 +243,12 @@ public class CircularIndicatorView extends View {
         float scale = getContext().getResources().getDisplayMetrics().density;
         return (int) (dip * scale + 0.5f * (dip >= 0 ? 1 : -1));
     }
+
+    private float DptoPx(int value) {
+
+        return SizeUtil.Dp2Px(getContext(), value);
+    }
+
 
     @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);

@@ -5,7 +5,7 @@ import android.widget.SeekBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.max.tang.demokiller.R;
-import com.max.tang.demokiller.mygithub.view.GaugeView;
+import com.max.tang.demokiller.view.GaugeView;
 import com.max.tang.demokiller.view.CircleGradientProgressbar;
 import com.max.tang.demokiller.view.CircularIndicatorView;
 
@@ -32,6 +32,7 @@ public class CustomViewActivity extends BaseActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 circularView.setValue(progress);
                 circleGradientProgressbar.setProgress(progress);
+                gaugeView.setScore(progress);
             }
 
             @Override public void onStartTrackingTouch(SeekBar seekBar) {

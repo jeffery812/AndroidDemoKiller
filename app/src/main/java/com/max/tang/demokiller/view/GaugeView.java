@@ -1,4 +1,4 @@
-package com.max.tang.demokiller.mygithub.view;
+package com.max.tang.demokiller.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
