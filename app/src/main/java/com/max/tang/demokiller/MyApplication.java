@@ -1,7 +1,5 @@
 package com.max.tang.demokiller;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,6 +7,11 @@ import com.max.tang.demokiller.utils.FakeCrashLibrary;
 import com.max.tang.demokiller.utils.log.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.wanjian.cockroach.Cockroach;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -49,22 +52,29 @@ public class MyApplication extends MultiDexApplication {
             @Override
             public void handlerException(final Thread thread, final Throwable throwable) {
                 //开发时使用Cockroach可能不容易发现bug，所以建议开发阶段在handlerException中用Toast谈个提示框，
-                //由于handlerException可能运行在非ui线程中，Toast又需要在主线程，所以new了一个new Handler(Looper.getMainLooper())，
-                //所以千万不要在下面的run方法中执行耗时操作，因为run已经运行在了ui线程中。
-                //new Handler(Looper.getMainLooper())只是为了能弹出个toast，并无其他用途
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            //建议使用下面方式在控制台打印异常，这样就可以在Error级别看到红色log
-                            Log.e("AndroidRuntime","--->CockroachException:"+thread+"<---",throwable);
-                            Toast.makeText(MyApplication.this, "Exception Happend\n" + thread + "\n" + throwable.toString(), Toast.LENGTH_SHORT).show();
-                            //                        throw new RuntimeException("..."+(i++));
-                        } catch (Throwable e) {
-                            Logger.e(e);
+                Observable.just(throwable)
+                    .subscribeOn(Schedulers.io())
+                    .map(new Func1<Throwable, Throwable>() {
+                        @Override public Throwable call(Throwable throwable) {
+                            /**
+                             * 如果有,耗时操作可以放在这里
+                             */
+                            return throwable;
                         }
-                    }
-                });
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Throwable>() {
+                        @Override public void call(Throwable throwable) {
+                            try {
+                                //建议使用下面方式在控制台打印异常，这样就可以在Error级别看到红色log
+                                Log.e("AndroidRuntime","--->CockroachException:"+thread+"<---",throwable);
+                                Toast.makeText(MyApplication.this, "Exception Happend\n" + thread + "\n" + throwable.toString(), Toast.LENGTH_SHORT).show();
+                                //                        throw new RuntimeException("..."+(i++));
+                            } catch (Throwable e) {
+                                Log.e("AndroidRuntime","--->CockroachException:"+thread+"<---",e);
+                            }
+                        }
+                    });
             }
         });
     }
