@@ -8,6 +8,7 @@
   <uses-permission android:name="android.permission.READ_CONTACTS"/>
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
   <receiver
       android:name=".utils.ConnectionChangeReceiver"
@@ -42,6 +43,16 @@
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="stockholm"
+            android:host="www.tanggod.com"/>
+      </intent-filter>
+
     </activity>
 
     <activity-alias
@@ -78,7 +89,16 @@
     </activity>
     <activity android:name=".activity.CustomViewActivity">
     </activity>
-    <activity android:name=".activity.RxBindingActivity">
+    <activity android:name=".RxBinding.RxBindingActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="stockholm"
+            android:host="com.ebuilder"/>
+      </intent-filter>
+
     </activity>
     <activity android:name=".activity.DemoNotification">
     </activity>

@@ -81,7 +81,9 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.6.0'
 
 
-    compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.1'
+
     compile 'com.jakewharton.timber:timber:4.5.0'
     //compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
     //compile 'com.jakewharton.rxbinding:rxbinding-design:1.0.0'
@@ -106,5 +108,6 @@ dependencies {
     // https://github.com/bumptech/glide/
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.8.0@aar'
 
 }
