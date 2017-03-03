@@ -110,4 +110,7 @@ dependencies {
 
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.8.0@aar'
 
+    // https://github.com/android-notes/Cockroach
+    compile 'com.wanjian:cockroach:0.0.5'
+
 }

@@ -49,6 +49,7 @@ public class RxBindingActivity extends BaseActivity {
 
         /**
          * warning: 单例, 注意要取消订阅, rxBusSubscription.unsubscribe()
+         * 否则会重复订阅
          */
         rxBusSubscription = RxBus.instanceOf().getEvents().subscribe(new Action1<Object>() {
             @Override
@@ -154,9 +155,8 @@ public class RxBindingActivity extends BaseActivity {
 
     }
 
-    @Override protected void onStop() {
-        super.onStop();
-        Logger.d("RxBindingActivity onStop");
+    @Override protected void onDestroy() {
+        super.onDestroy();
         verifyCodeObservable.unsubscribeOn(AndroidSchedulers.mainThread());
         if( subscription != null ) {
             subscription.unsubscribe();
@@ -165,5 +165,11 @@ public class RxBindingActivity extends BaseActivity {
         if( rxBusSubscription != null ){
             rxBusSubscription.unsubscribe();
         }
+
+    }
+
+    @Override protected void onStop() {
+        super.onStop();
+        Logger.d("RxBindingActivity onStop");
     }
 }
