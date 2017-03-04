@@ -25,32 +25,31 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.activity.BaseActivity;
-import com.max.tang.demokiller.fragment.DemoListFragment;
+import com.max.tang.demokiller.main.fragment.DemoListFragment;
 import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.fragment.PlusOneFragment;
 import com.max.tang.demokiller.main.model.GoogleSignIn;
 import com.max.tang.demokiller.main.model.SignIn;
 import com.max.tang.demokiller.main.model.SignInView;
 import com.max.tang.demokiller.utils.log.Logger;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class NavigationActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        PlusOneFragment.OnFragmentInteractionListener,
-        OnFragmentInteractionListener, SignInView {
+    implements NavigationView.OnNavigationItemSelectedListener,
+    PlusOneFragment.OnFragmentInteractionListener, OnFragmentInteractionListener, SignInView {
 
     TextView textViewTitle;
     TextView textViewSubtitle;
     ImageView imageProfile;
     SignIn mSignIn;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         /**
          * https://plus.google.com/+AndroidDevelopers/posts/Z1Wwainpjhd
          * replacing that custom theme with the standard theme before calling super.onCreate()
          */
         setTheme(R.style.AppTheme_NoActionBar);
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -58,16 +57,17 @@ public class NavigationActivity extends BaseActivity
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            @Override public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    .setAction("Action", null)
+                    .show();
             }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle =
+            new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -82,19 +82,15 @@ public class NavigationActivity extends BaseActivity
         ButterKnife.bind(this);
         Logger.d("onCreate");
 
-
-        textViewTitle =
-            (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_title);
+        textViewTitle = (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_title);
         textViewSubtitle =
             (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_subtitle);
         imageProfile = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.image_profile);
         mSignIn = new GoogleSignIn(this, this);
         mSignIn.signInSilently();
-
     }
 
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -103,15 +99,13 @@ public class NavigationActivity extends BaseActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -125,23 +119,21 @@ public class NavigationActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
+    @SuppressWarnings("StatementWithEmptyBody") @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         Fragment fragment;
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Logger.d("Navigation Item Clicked: " + item.getItemId() );
+        Logger.d("Navigation Item Clicked: " + item.getItemId());
 
         if (id == R.id.demo_list) {
-            fragment = DemoListFragment.newInstance("","");
+            fragment = DemoListFragment.newInstance("", "");
             ft.replace(R.id.content_navigation, fragment);
         } else if (id == R.id.plus_one) {
-            fragment = PlusOneFragment.newInstance("","");
+            fragment = PlusOneFragment.newInstance("", "");
             ft.replace(R.id.content_navigation, fragment);
-
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.sign_in) {
@@ -156,13 +148,11 @@ public class NavigationActivity extends BaseActivity
         return true;
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
+    @Override public void onFragmentInteraction(Uri uri) {
         Logger.d("onFragmentInteraction: " + uri.getHost());
     }
 
-    @Override
-    public void startDemo(Class className) {
+    @Override public void startDemo(Class className) {
         Intent intent = new Intent(this, className);
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left, R.anim.slide_out_left);
@@ -180,8 +170,12 @@ public class NavigationActivity extends BaseActivity
     @Override public void signInSucceed(GoogleSignInAccount account) {
         textViewTitle.setText(account.getDisplayName());
         textViewSubtitle.setText(account.getEmail());
-        if( account.getPhotoUrl() != null ) {
-            Glide.with(this).load(account.getPhotoUrl()).into(imageProfile);
+        if (account.getPhotoUrl() != null) {
+            //Glide.with(this).load(account.getPhotoUrl()).into(imageProfile);
+            Glide.with(this)
+                .load(account.getPhotoUrl())
+                .bitmapTransform(new CropCircleTransformation(this))
+                .into(imageProfile);
         }
 
         Toast.makeText(this, "Sign-In succeed", Toast.LENGTH_SHORT).show();

@@ -1,4 +1,4 @@
-package com.max.tang.demokiller.fragment;
+package com.max.tang.demokiller.main.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.adapter.DemoAdapter;
+import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.itemanimator.ItemAnimatorFactory;
 import com.max.tang.demokiller.model.DemoEntity;
 import com.max.tang.demokiller.DataLoader;

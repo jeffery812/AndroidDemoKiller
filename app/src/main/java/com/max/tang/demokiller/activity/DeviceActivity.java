@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -35,7 +34,6 @@ public class DeviceActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_device);
     ButterKnife.bind(this);
-    tvModel.setText(Build.MODEL);
     permissionToDrawOverlays();
   }
 

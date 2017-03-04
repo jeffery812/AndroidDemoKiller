@@ -1,12 +1,15 @@
 package com.max.tang.demokiller.RxBinding;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding.view.RxView;
@@ -15,6 +18,7 @@ import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.activity.BaseActivity;
 import com.max.tang.demokiller.utils.RxBus;
 import com.max.tang.demokiller.utils.log.Logger;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Observer;
@@ -32,6 +36,7 @@ public class RxBindingActivity extends BaseActivity {
     @BindView(R.id.recycler_view_info) RecyclerView mRecyclerViewInfo;
     @BindView(R.id.button_register) Button mBtnRegister;
 
+    DeviceInfoAdapter mDeviceInfoAdapter;
     Observable<Void> verifyCodeObservable;
     Subscription subscription;
     Subscription rxBusSubscription;
@@ -43,6 +48,13 @@ public class RxBindingActivity extends BaseActivity {
         setContentView(R.layout.activity_rx_binding);
         ButterKnife.bind(this);
 
+        mDeviceInfoAdapter = new DeviceInfoAdapter(this);
+        //mRecyclerViewInfo.setLayoutManager(new LinearLayoutManager(this));//这里用线性显示 类似于listview
+        mRecyclerViewInfo.setLayoutManager(new GridLayoutManager(this, 1));//这里用线性宫格显示 类似于grid view
+        //        mRecyclerViewInfo.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));//这里用线性宫格显示 类似于瀑布流
+
+        mRecyclerViewInfo.setAdapter(mDeviceInfoAdapter);
+
         initEditText();
 
         initButton();
@@ -52,55 +64,50 @@ public class RxBindingActivity extends BaseActivity {
          * 否则会重复订阅
          */
         rxBusSubscription = RxBus.instanceOf().getEvents().subscribe(new Action1<Object>() {
-            @Override
-            public void call(Object o) {
-                if( o instanceof String ){
+            @Override public void call(Object o) {
+                if (o instanceof String) {
                     Logger.d("got event: " + o);
                 }
             }
         });
-
     }
 
-    private void initButton(){
+    private void initButton() {
         /**
          * 验证码倒计时
          * http://blog.csdn.net/qq_17766199/article/details/54646011
          */
         int SECOND = 20;
-       verifyCodeObservable = RxView.clicks(mBtnRegister)
+        mBtnRegister.setText("Get Verification Code");
+        verifyCodeObservable = RxView.clicks(mBtnRegister)
             .throttleFirst(SECOND, TimeUnit.SECONDS) //防止20秒内连续点击,或者只使用doOnNext部分
             .subscribeOn(AndroidSchedulers.mainThread())
             .doOnNext(new Action1<Void>() {
-                @Override
-                public void call(Void aVoid) {
+                @Override public void call(Void aVoid) {
                     RxView.enabled(mBtnRegister).call(false);
                 }
             });
 
-         verifyCodeObservable.subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                subscription = Observable.interval(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                    .take(SECOND)
-                    .subscribe(new Observer<Long>() {
-                        @Override
-                        public void onCompleted() {
-                            RxTextView.text(mBtnRegister).call("获取验证码");
-                            RxView.enabled(mBtnRegister).call(true);
-                        }
+        verifyCodeObservable.subscribe(new Action1<Void>() {
+            @Override public void call(Void aVoid) {
+                subscription =
+                    Observable.interval(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                        .take(SECOND)
+                        .subscribe(new Observer<Long>() {
+                            @Override public void onCompleted() {
+                                RxTextView.text(mBtnRegister).call("Get Verification Code");
+                                RxView.enabled(mBtnRegister).call(true);
+                            }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Logger.e(TAG, e.toString());
-                        }
+                            @Override public void onError(Throwable e) {
+                                Logger.e(TAG, e.toString());
+                            }
 
-                        @Override
-                        public void onNext(Long aLong) {
-                            RxTextView.text(mBtnRegister).call("剩余" + (SECOND - aLong) + "秒");
-                            Logger.d(TAG, "剩余" + (SECOND - aLong) + "秒");
-                        }
-                    });
+                            @Override public void onNext(Long aLong) {
+                                RxTextView.text(mBtnRegister).call((SECOND - aLong) + "s left");
+                                Logger.d(TAG, "剩余" + (SECOND - aLong) + "秒");
+                            }
+                        });
             }
         });
 
@@ -117,7 +124,6 @@ public class RxBindingActivity extends BaseActivity {
                     RxBus.instanceOf().postEvent("event sent: Button clicked");
 
                     loadData();
-
                 }
             });
     }
@@ -137,7 +143,6 @@ public class RxBindingActivity extends BaseActivity {
             @Override public void afterTextChanged(Editable s) {
 
             }
-
         });
 
         // Rx方式
@@ -149,23 +154,31 @@ public class RxBindingActivity extends BaseActivity {
         });
     }
 
-    private void loadData(){
+    private void loadData() {
 
-        //RxDataSource<String> rxDataSource = new RxDataSource<>(dataSet);
+        mDeviceInfoAdapter.clearData();
+        mDeviceInfoAdapter.addData(new DeviceInfo("Android Version", Build.VERSION.RELEASE));
+        mDeviceInfoAdapter.addData(new DeviceInfo("Brand", Build.BRAND));
+        mDeviceInfoAdapter.addData(new DeviceInfo("Manufacture", Build.MANUFACTURER));
+        mDeviceInfoAdapter.addData(new DeviceInfo("Model", Build.MODEL));
+        mDeviceInfoAdapter.addData(new DeviceInfo("BuildNumber", Build.DISPLAY));
+        mDeviceInfoAdapter.addData(new DeviceInfo("Language",
+            Locale.getDefault().getDisplayLanguage() + ", " + Locale.getDefault().getLanguage()));
 
+        Toast.makeText(this, "Finished", Toast.LENGTH_SHORT).show();
     }
 
     @Override protected void onDestroy() {
         super.onDestroy();
         verifyCodeObservable.unsubscribeOn(AndroidSchedulers.mainThread());
-        if( subscription != null ) {
+
+        if (subscription != null) {
             subscription.unsubscribe();
         }
 
-        if( rxBusSubscription != null ){
+        if (rxBusSubscription != null) {
             rxBusSubscription.unsubscribe();
         }
-
     }
 
     @Override protected void onStop() {

@@ -107,7 +107,8 @@ dependencies {
 
     // https://github.com/bumptech/glide/
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.8.0@aar'
 
     // https://github.com/android-notes/Cockroach

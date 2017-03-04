@@ -72,8 +72,6 @@
         android:name=".activity.DemoDataBindingActivity"
         android:label="@string/title_activity_demo_data_binding">
     </activity>
-    <activity android:name=".activity.RxActivity">
-    </activity>
     <activity
         android:name=".activity.SortActivity"
         android:label="@string/sort_demo">
@@ -89,7 +87,9 @@
     </activity>
     <activity android:name=".activity.CustomViewActivity">
     </activity>
-    <activity android:name=".RxBinding.RxBindingActivity">
+    <activity android:name=".RxBinding.RxBindingActivity"
+        android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+        >
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
 
