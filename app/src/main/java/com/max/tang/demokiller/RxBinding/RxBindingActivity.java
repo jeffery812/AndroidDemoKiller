@@ -17,7 +17,9 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.activity.BaseActivity;
 import com.max.tang.demokiller.utils.RxBus;
+import com.max.tang.demokiller.utils.device.AndroidSettingsUtil;
 import com.max.tang.demokiller.utils.log.Logger;
+import com.tbruyelle.rxpermissions.RxPermissions;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
@@ -25,6 +27,7 @@ import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+
 
 public class RxBindingActivity extends BaseActivity {
     private static final String TAG = "RxBinding";
@@ -156,6 +159,18 @@ public class RxBindingActivity extends BaseActivity {
 
     private void loadData() {
 
+        RxPermissions.getInstance(this).request(android.Manifest.permission.READ_PHONE_STATE)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(granted -> {
+                String imei = "";
+                if( granted ) {
+                    imei = AndroidSettingsUtil.getImei(this);
+                    Logger.d(TAG, "IMEI: " + imei);
+                }else{
+                    imei = "need permission";
+                }
+                mDeviceInfoAdapter.addData(new DeviceInfo("IMEI", imei));
+            });
         mDeviceInfoAdapter.clearData();
         mDeviceInfoAdapter.addData(new DeviceInfo("Android Version", Build.VERSION.RELEASE));
         mDeviceInfoAdapter.addData(new DeviceInfo("Brand", Build.BRAND));

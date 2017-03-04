@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import com.max.tang.demokiller.utils.log.Logger;
 import java.util.List;
 
 /**
@@ -48,4 +50,17 @@ public class AndroidSettingsUtil {
     public static void openPrivacySettings(final Activity activity, final int requestCode) {
         openSetting(activity, Settings.ACTION_PRIVACY_SETTINGS, requestCode);
     }
+
+    public static String getImei(Context context) {
+        String uid = "";
+        try {
+            TelephonyManager tManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            uid = tManager.getDeviceId();
+        } catch (Exception e) {
+            // device has no telephony support
+            Logger.e(e);
+        }
+        return uid;
+    }
+
 }
