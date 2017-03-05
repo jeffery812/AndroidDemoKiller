@@ -61,7 +61,7 @@ public class DeviceInfoAdapter extends RecyclerView.Adapter<DeviceInfoAdapter.In
         }
 
         private void populate(final String name, final String value) {
-            tvName.setText(name);
+            tvName.setText(name + "-");
             tvValue.setText(value);
         }
     }
