@@ -25,23 +25,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.activity.BaseActivity;
-import com.max.tang.demokiller.main.fragment.DemoListFragment;
 import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.fragment.PlusOneFragment;
+import com.max.tang.demokiller.main.fragment.DemoListFragment;
 import com.max.tang.demokiller.main.model.GoogleSignIn;
-import com.max.tang.demokiller.main.model.SignIn;
-import com.max.tang.demokiller.main.model.SignInView;
 import com.max.tang.demokiller.utils.log.Logger;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class NavigationActivity extends BaseActivity
     implements NavigationView.OnNavigationItemSelectedListener,
-    PlusOneFragment.OnFragmentInteractionListener, OnFragmentInteractionListener, SignInView {
+    PlusOneFragment.OnFragmentInteractionListener, OnFragmentInteractionListener, SignContract.View {
 
     TextView textViewTitle;
     TextView textViewSubtitle;
     ImageView imageProfile;
-    SignIn mSignIn;
+    SignContract.Presenter presenter;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         /**
@@ -86,8 +84,8 @@ public class NavigationActivity extends BaseActivity
         textViewSubtitle =
             (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_subtitle);
         imageProfile = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.image_profile);
-        mSignIn = new GoogleSignIn(this, this);
-        mSignIn.signInSilently();
+        presenter = new GoogleSignIn(this, this);
+        presenter.signInSilently();
     }
 
     @Override public void onBackPressed() {
@@ -137,9 +135,9 @@ public class NavigationActivity extends BaseActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.sign_in) {
-            mSignIn.signIn();
+            presenter.signIn();
         } else if (id == R.id.sign_out) {
-            mSignIn.signOut();
+            presenter.signOut();
         }
         ft.commit();
 
@@ -160,11 +158,11 @@ public class NavigationActivity extends BaseActivity
 
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mSignIn.onActivityResult(requestCode, resultCode, data);
+        presenter.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        mSignIn.onConnectionFailed(connectionResult);
+        presenter.onConnectionFailed(connectionResult);
     }
 
     @Override public void signInSucceed(GoogleSignInAccount account) {
@@ -190,5 +188,18 @@ public class NavigationActivity extends BaseActivity
         textViewSubtitle.setText("not signed in");
         imageProfile.setImageDrawable(null);
         Toast.makeText(this, "User Signed-Out succeed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override protected void onResumeFragments() {
+        super.onResumeFragments();
+        presenter.start();
+    }
+
+    @Override public void setPresenter(SignContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override public void initViews(View view) {
+
     }
 }

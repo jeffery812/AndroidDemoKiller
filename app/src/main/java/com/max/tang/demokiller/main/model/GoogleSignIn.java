@@ -12,24 +12,25 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.max.tang.demokiller.main.activity.SignContract;
 import com.max.tang.demokiller.utils.log.Logger;
 
 /**
  * Created by zhihuitang on 2017-02-11.
  */
 
-public class GoogleSignIn implements SignIn {
+public class GoogleSignIn implements SignContract.Presenter {
 
     private final String TAG = "google-sign-in";
     private final int RC_SIGN_IN = 101;
 
     private GoogleApiClient mGoogleApiClient;
-    private SignInView mSignView;
+    private SignContract.View view;
     private AppCompatActivity activity;
 
-    public GoogleSignIn(AppCompatActivity activity, SignInView view) {
+    public GoogleSignIn(AppCompatActivity activity, SignContract.View view) {
         this.activity = activity;
-        this.mSignView = view;
+        this.view = view;
 
         initSignIn();
     }
@@ -45,7 +46,7 @@ public class GoogleSignIn implements SignIn {
         // options specified by gso.
         mGoogleApiClient =
             new GoogleApiClient.Builder(activity).enableAutoManage(activity /* FragmentActivity */,
-                mSignView /* OnConnectionFailedListener */)
+                view /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
     }
@@ -61,7 +62,7 @@ public class GoogleSignIn implements SignIn {
                 @Override public void onResult(Status status) {
                     // ...
                     if (status.isSuccess()) {
-                        mSignView.signedOut();
+                        view.signedOut();
                     }
                 }
             });
@@ -105,11 +106,15 @@ public class GoogleSignIn implements SignIn {
             // Signed in successfully, show authenticated UI.
             Logger.d(TAG, "Google sign-in succeed");
             GoogleSignInAccount acct = result.getSignInAccount();
-            mSignView.signInSucceed(acct);
+            view.signInSucceed(acct);
         } else {
             Logger.d(TAG, "Google sign-in failed: " + result.getStatus());
             // Signed out, show unauthenticated UI.
-            mSignView.signInFailed();
+            view.signInFailed();
         }
+    }
+
+    @Override public void start() {
+
     }
 }
