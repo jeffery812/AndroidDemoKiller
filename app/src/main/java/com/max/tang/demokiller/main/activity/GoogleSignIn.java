@@ -1,4 +1,4 @@
-package com.max.tang.demokiller.main.model;
+package com.max.tang.demokiller.main.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -12,7 +12,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.max.tang.demokiller.main.activity.SignContract;
 import com.max.tang.demokiller.utils.log.Logger;
 
 /**
@@ -32,6 +31,7 @@ public class GoogleSignIn implements SignContract.Presenter {
         this.activity = activity;
         this.view = view;
 
+        this.view.setPresenter(this);
         initSignIn();
     }
 

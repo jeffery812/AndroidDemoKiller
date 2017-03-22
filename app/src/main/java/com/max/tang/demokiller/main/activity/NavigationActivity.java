@@ -28,7 +28,6 @@ import com.max.tang.demokiller.activity.BaseActivity;
 import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.fragment.PlusOneFragment;
 import com.max.tang.demokiller.main.fragment.DemoListFragment;
-import com.max.tang.demokiller.main.model.GoogleSignIn;
 import com.max.tang.demokiller.utils.log.Logger;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 

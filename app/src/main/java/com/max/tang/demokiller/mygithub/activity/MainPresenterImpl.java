@@ -7,13 +7,13 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainPresenterImpl implements MainPresenter {
+public class MainPresenterImpl implements MyGithubContract.Presenter {
 
 	private ApiManager apiManager;
-	private MainView mainView;
+	private MyGithubContract.View view;
 
-	public MainPresenterImpl(MainView mainView) {
-		this.mainView = mainView;
+	public MainPresenterImpl(MyGithubContract.View view) {
+		this.view = view;
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class MainPresenterImpl implements MainPresenter {
 		apiManager.getGithubRepos(new Callback<List<GithubRepo>>() {
 			@Override
 			public void success(List<GithubRepo> githubRepos, Response response) {
-				mainView.loadData(githubRepos);
+				view.dataLoaded(githubRepos);
 			}
 
 			@Override
@@ -39,5 +39,9 @@ public class MainPresenterImpl implements MainPresenter {
 	@Override
 	public void subscribe() {
 		apiManager = new ApiManager();
+	}
+
+	@Override public void start() {
+
 	}
 }

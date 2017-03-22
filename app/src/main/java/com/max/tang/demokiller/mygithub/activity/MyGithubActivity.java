@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
@@ -19,8 +20,8 @@ import com.max.tang.demokiller.mygithub.data.entities.GithubRepo;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.List;
 
-public class MyGithubActivity extends AppCompatActivity implements MainView {
-    private MainPresenter mainPresenter;
+public class MyGithubActivity extends AppCompatActivity implements MyGithubContract.View {
+    private MyGithubContract.Presenter presenter;
     private GithubRecyclerAdapter adapter;
 
 
@@ -59,12 +60,12 @@ public class MyGithubActivity extends AppCompatActivity implements MainView {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
-        mainPresenter = new MainPresenterImpl(this);
-        mainPresenter.subscribe();
-        mainPresenter.loadData();
+        presenter = new MainPresenterImpl(this);
+        presenter.subscribe();
+        presenter.loadData();
     }
 
-    @Override public void loadData(List<GithubRepo> githubRepoList) {
+    @Override public void dataLoaded(List<GithubRepo> githubRepoList) {
         adapter.setGithubRepoList(githubRepoList);
         //mToolbar.setTitle("Github" + RestAdapter.Nodes.username);
         // http://www.jianshu.com/p/2e135628e0fa
@@ -74,5 +75,13 @@ public class MyGithubActivity extends AppCompatActivity implements MainView {
         if( githubRepoList != null && !githubRepoList.isEmpty() ) {
             Glide.with(this).load(githubRepoList.get(0).getOwner().getAvatar_url()).into(mAvatarImage);
         }
+    }
+
+    @Override public void setPresenter(MyGithubContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override public void initViews(View view) {
+
     }
 }
