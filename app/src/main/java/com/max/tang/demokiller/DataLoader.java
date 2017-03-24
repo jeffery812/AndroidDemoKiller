@@ -11,6 +11,7 @@ import com.max.tang.demokiller.activity.LoginActivity;
 import com.max.tang.demokiller.activity.MessActivity;
 import com.max.tang.demokiller.activity.SortActivity;
 import com.max.tang.demokiller.activity.WatchActivity;
+import com.max.tang.demokiller.animation.AnimationActivity;
 import com.max.tang.demokiller.model.DemoEntity;
 import com.max.tang.demokiller.mygithub.activity.MyGithubActivity;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class DataLoader {
         list.add(new DemoEntity("10 CoordinatorLayout demo", CoordinatorLayoutActivity.class));
         list.add(new DemoEntity("11 ListView demo", ListViewDemo.class));
         list.add(new DemoEntity("12 大杂烩 demo", MessActivity.class));
+        list.add(new DemoEntity("13 animation demo", AnimationActivity.class));
         return list;
     }
 }

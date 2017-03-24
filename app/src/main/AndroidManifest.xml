@@ -43,16 +43,16 @@
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
-
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
 
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="stockholm"
-            android:host="www.tanggod.com"/>
-      </intent-filter>
 
+        <data
+            android:host="www.tanggod.com"
+            android:scheme="stockholm"/>
+      </intent-filter>
     </activity>
 
     <activity-alias
@@ -87,18 +87,19 @@
     </activity>
     <activity android:name=".activity.CustomViewActivity">
     </activity>
-    <activity android:name=".RxBinding.RxBindingActivity"
-        android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-        >
+    <activity
+        android:name=".RxBinding.RxBindingActivity"
+        android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
 
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="stockholm"
-            android:host="com.ebuilder"/>
-      </intent-filter>
 
+        <data
+            android:host="com.ebuilder"
+            android:scheme="stockholm"/>
+      </intent-filter>
     </activity>
     <activity android:name=".activity.DemoNotification">
     </activity>
@@ -122,6 +123,8 @@
         android:name=".mygithub.activity.MyGithubActivity"
         android:label="@string/title_activity_my_github"
         android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity android:name=".animation.AnimationActivity">
     </activity>
   </application>
 
