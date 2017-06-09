@@ -40,6 +40,11 @@ public class NavigationActivity extends BaseActivity
     ImageView imageProfile;
     SignContract.Presenter presenter;
 
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        Logger.d("NavigationActivity onDestroy " + this.toString());
+    }
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         /**
          * https://plus.google.com/+AndroidDevelopers/posts/Z1Wwainpjhd
@@ -49,6 +54,8 @@ public class NavigationActivity extends BaseActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        Logger.d("NavigationActivity onCreate " + this.toString());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -200,5 +207,10 @@ public class NavigationActivity extends BaseActivity
 
     @Override public void initViews(View view) {
 
+    }
+
+    @Override protected void finalize() throws Throwable {
+        super.finalize();
+        Logger.d("NavigationActivity finalize " + this.toString());
     }
 }

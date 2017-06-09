@@ -16,8 +16,10 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.functions.Func2;
+import rx.schedulers.Schedulers;
 
 public class MessActivity extends AppCompatActivity {
     private static final String TAG = "MessActivity";
@@ -92,6 +94,51 @@ public class MessActivity extends AppCompatActivity {
         });
     }
 
+    public void testRxAndroidThread(View view) {
+        Integer[] items = {1,2,3};
+        Observable.from(items)
+            .map(new Func1<Integer, String>() {
+                @Override public String call(Integer i) {
+                    String s = "map1 " + i;
+                    Logger.d(Thread.currentThread().getName(), s);
+                    return s;
+                }
+            })
+            .observeOn(Schedulers.newThread())
+            .map(new Func1<String, String>() {
+                @Override public String call(String text) {
+                    String s = "map2 " + text;
+                    Logger.d(Thread.currentThread().getName(), s);
+                    return s;
+                }
+            })
+            .observeOn(Schedulers.io())
+            .map(new Func1<String, String>() {
+                @Override public String call(String text) {
+                    String s = "map3 " + text;
+                    Logger.d(Thread.currentThread().getName(), s);
+                    return s;
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber<String>() {
+                @Override public void onCompleted() {
+                    Logger.d(Thread.currentThread().getName(), "completed");
+                }
+
+                @Override public void onError(Throwable e) {
+
+                }
+
+                @Override public void onNext(String s) {
+                    Logger.d(Thread.currentThread().getName(), "subscriber: " + s);
+
+                }
+            });
+
+
+
+    }
     public void testRxAndroidMerge(View view) {
         //产生0,5,10,15,20数列
         System.out.print("test RxAndroid Join function");

@@ -1,11 +1,11 @@
 package com.max.tang.demokiller.RxBinding;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,7 +20,6 @@ import com.max.tang.demokiller.utils.RxBus;
 import com.max.tang.demokiller.utils.device.AndroidSettingsUtil;
 import com.max.tang.demokiller.utils.log.Logger;
 import com.tbruyelle.rxpermissions.RxPermissions;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Observer;
@@ -29,7 +28,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 
-public class RxBindingActivity extends BaseActivity {
+public class RxBindingActivity extends BaseActivity implements DeviceContract.View {
     private static final String TAG = "RxBinding";
     //@BindView(R.id.rxbinding_t_toolbar) Toolbar mTToolbar;
     @BindView(R.id.rxbinding_et_usual_approach) EditText mEtUsualApproach;
@@ -43,6 +42,7 @@ public class RxBindingActivity extends BaseActivity {
     Observable<Void> verifyCodeObservable;
     Subscription subscription;
     Subscription rxBusSubscription;
+    private DeviceContract.Presenter presenter;
 
     //@BindView(R.id.rxbinding_fab_fab) FloatingActionButton mFabFab;
 
@@ -50,6 +50,8 @@ public class RxBindingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_binding);
         ButterKnife.bind(this);
+        presenter = new RxDemoPresenter(this, this);
+        presenter.start();
 
         mDeviceInfoAdapter = new DeviceInfoAdapter(this);
         //mRecyclerViewInfo.setLayoutManager(new LinearLayoutManager(this));//这里用线性显示 类似于listview
@@ -171,17 +173,13 @@ public class RxBindingActivity extends BaseActivity {
                 }
                 mDeviceInfoAdapter.addData(new DeviceInfo("IMEI", imei));
             });
-        mDeviceInfoAdapter.clearData();
-        mDeviceInfoAdapter.addData(new DeviceInfo("Android Version", Build.VERSION.RELEASE));
-        mDeviceInfoAdapter.addData(new DeviceInfo("Brand", Build.BRAND));
-        mDeviceInfoAdapter.addData(new DeviceInfo("Manufacture", Build.MANUFACTURER));
-        mDeviceInfoAdapter.addData(new DeviceInfo("Model", Build.MODEL));
-        mDeviceInfoAdapter.addData(new DeviceInfo("BuildNumber", Build.DISPLAY));
-        mDeviceInfoAdapter.addData(new DeviceInfo("Language",
-            Locale.getDefault().getDisplayLanguage() + ", " + Locale.getDefault().getLanguage()));
+
+        mDeviceInfoAdapter.setData(presenter.getData());
 
         Toast.makeText(this, "Finished", Toast.LENGTH_SHORT).show();
     }
+
+
 
     @Override protected void onDestroy() {
         super.onDestroy();
@@ -199,5 +197,13 @@ public class RxBindingActivity extends BaseActivity {
     @Override protected void onStop() {
         super.onStop();
         Logger.d("RxBindingActivity onStop");
+    }
+
+    @Override public void setPresenter(DeviceContract.Presenter presenter) {
+        //this.presenter = presenter;
+    }
+
+    @Override public void initViews(View view) {
+
     }
 }

@@ -13,8 +13,8 @@ android {
     applicationId "com.max.tang.demokiller"
     minSdkVersion 21
     targetSdkVersion 24
-    versionCode 1
-    versionName "1.0"
+    versionCode 5
+    versionName "1.5"
     // Enabling multidex support.
     multiDexEnabled true
 
@@ -72,9 +72,9 @@ dependencies {
     //compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
     //compile 'com.jakewharton.rxbinding:rxbinding-design:1.0.0'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "com.android.support:appcompat-v7:$support_version"
-    compile "org.jetbrains.anko:anko-common:$anko_version"
+//    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//    compile "com.android.support:appcompat-v7:$support_version"
+//    compile "org.jetbrains.anko:anko-common:$anko_version"
 
     
     
@@ -116,4 +116,7 @@ dependencies {
   apt 'com.jakewharton:butterknife-compiler:8.4.0'
   debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
   releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+//  compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+
 }

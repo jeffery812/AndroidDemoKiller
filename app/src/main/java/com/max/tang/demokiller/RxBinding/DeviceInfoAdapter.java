@@ -41,6 +41,10 @@ public class DeviceInfoAdapter extends RecyclerView.Adapter<DeviceInfoAdapter.In
         return mData.size();
     }
 
+    void setData(List<DeviceInfo> data) {
+        this.mData = data;
+    }
+
     void clearData(){
         mData.clear();
         notifyDataSetChanged();
