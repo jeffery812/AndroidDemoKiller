@@ -9,6 +9,7 @@ import com.max.tang.demokiller.activity.DeviceActivity;
 import com.max.tang.demokiller.activity.ListViewDemo;
 import com.max.tang.demokiller.activity.LoginActivity;
 import com.max.tang.demokiller.activity.MessActivity;
+import com.max.tang.demokiller.activity.NetworkMonitorMainActivity;
 import com.max.tang.demokiller.activity.SortActivity;
 import com.max.tang.demokiller.activity.WatchActivity;
 import com.max.tang.demokiller.animation.AnimationActivity;
@@ -46,6 +47,7 @@ public class DataLoader {
         list.add(new DemoEntity("11 ListView demo", ListViewDemo.class));
         list.add(new DemoEntity("12 大杂烩 demo", MessActivity.class));
         list.add(new DemoEntity("13 animation demo", AnimationActivity.class));
+        list.add(new DemoEntity("14 Network Monitor", NetworkMonitorMainActivity.class));
         return list;
     }
 }

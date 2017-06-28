@@ -6,6 +6,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 
+def cmd = 'git rev-list HEAD --first-parent --count'
+def gitVersion = cmd.execute().text.trim().toInteger()
+
 android {
   compileSdkVersion 24
   buildToolsVersion "24.0.2"
@@ -13,7 +16,7 @@ android {
     applicationId "com.max.tang.demokiller"
     minSdkVersion 21
     targetSdkVersion 24
-    versionCode 5
+    versionCode gitVersion
     versionName "1.5"
     // Enabling multidex support.
     multiDexEnabled true
@@ -40,10 +43,33 @@ android {
   dataBinding {
     enabled true
   }
+
+  productFlavors {
+
+      free {}
+      pay {}
+  }
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    debug {
+
+      project.afterEvaluate {
+        applicationVariants.all { variant ->
+          variant.outputs.each { output ->
+            def suffix = signingConfig ? signingConfig.keyAlias + "_signed" : "unsigned";
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+              def fileName = "DemoKiller-v${defaultConfig.versionName}.${defaultConfig.versionCode}-${releaseTime()}-${variant.buildType.name}-${variant.productFlavors[0].name}-${suffix}.apk"
+              output.outputFile = new File(outputFile.parent, fileName)
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -60,20 +86,15 @@ dependencies {
 
   //butterknife: https://github.com/JakeWharton/butterknife
   //compile 'com.android.support:appcompat-v7:25.0.1'
-    
-
 
   // https://github.com/square/leakcanary
     
-    compile 'com.google.android.gms:play-services:9.6.0'
-
-
     
-    //compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
-    //compile 'com.jakewharton.rxbinding:rxbinding-design:1.0.0'
+  //compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
 
-//    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-//    compile "com.android.support:appcompat-v7:$support_version"
+  //compile 'com.jakewharton.rxbinding:rxbinding-design:1.0.0'
+  //    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  //    compile "com.android.support:appcompat-v7:$support_version"
 //    compile "org.jetbrains.anko:anko-common:$anko_version"
 
     
@@ -86,12 +107,19 @@ dependencies {
     
     // https://github.com/android-notes/Cockroach
     
+  compile 'com.google.android.gms:play-services:9.6.0'
+  
+//  compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+
+  //compile 'com.github.zhihuitang:CraftKit:v0.0.1'
+
+
+  compile 'com.google.android.gms:play-services:9.6.0'
   compile 'com.android.support:appcompat-v7:24.2.1'
   compile 'com.android.support:recyclerview-v7:24.2.1'
   compile 'com.jakewharton:butterknife:8.4.0'
   compile 'com.android.support:design:24.2.1'
   compile 'com.android.support:support-v4:24.2.1'
-  compile 'com.google.android.gms:play-services:9.6.0'
   compile 'com.android.support:multidex:1.0.0'
   compile 'io.reactivex:rxandroid:1.2.1'
   compile 'io.reactivex:rxjava:1.1.6'
@@ -116,7 +144,9 @@ dependencies {
   apt 'com.jakewharton:butterknife-compiler:8.4.0'
   debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
   releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+}
 
-//  compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
 
+def releaseTime() {
+  return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }
