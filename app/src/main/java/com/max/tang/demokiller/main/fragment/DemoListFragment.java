@@ -9,15 +9,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.max.tang.demokiller.BuildConfig;
+import com.max.tang.demokiller.DataLoader;
 import com.max.tang.demokiller.R;
 import com.max.tang.demokiller.adapter.DemoAdapter;
 import com.max.tang.demokiller.fragment.OnFragmentInteractionListener;
 import com.max.tang.demokiller.itemanimator.ItemAnimatorFactory;
 import com.max.tang.demokiller.model.DemoEntity;
-import com.max.tang.demokiller.DataLoader;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +42,8 @@ public class DemoListFragment extends Fragment {
     private String mParam2;
     @BindView(R.id.recycler_view_main)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.text_view_build_info) TextView mTextViewBuildInfo;
 
     private OnFragmentInteractionListener mListener;
 
@@ -86,6 +92,10 @@ public class DemoListFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(ItemAnimatorFactory.slidein()); //设置Iem动画
         mRecyclerView.setAdapter(demoAdapter);
+
+        Date buildDate = new Date(BuildConfig.TIMESTAMP);
+        final String text = String.format(Locale.getDefault(), "%s(%d) Build at %s", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, buildDate.toString());
+        mTextViewBuildInfo.setText(text);
         return view;
     }
 

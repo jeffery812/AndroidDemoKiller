@@ -43,8 +43,10 @@ import com.max.tang.demokiller.utils.log.Logger;
         if( Build.VERSION.SDK_INT < Build.VERSION_CODES.M ){
             return;
         }
+        final float trafficTotal = (TrafficStats.getTotalRxBytes() + TrafficStats.getMobileTxBytes())/1024;
         final float mobileTotal1 = (TrafficStats.getMobileRxBytes() + TrafficStats.getMobileTxBytes())/1024;
         final float mobileTotal2 = getMoileTotal();
+        Logger.d(TAG, "traffic in total Rx+Tx: " + trafficTotal);
         Logger.d(TAG, "traffic1 Rx+Tx: " + mobileTotal1);
         Logger.d(TAG, "traffic2 Rx+Tx: " + mobileTotal2);
     }

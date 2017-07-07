@@ -18,14 +18,14 @@ import java.util.List;
 public class BaseActivity extends AppCompatActivity {
 
     @Override protected void onStop() {
-        Logger.d("shanghai", "remove activity: " + this.getLocalClassName());
+        Logger.i("shanghai", "remove activity: " + this.getLocalClassName());
         ActivityManager.getInstance().removeActivity(this);
         super.onStop();
     }
 
     @Override protected void onStart() {
         super.onStart();
-        Logger.d("shanghai", "add activity: " + this.getLocalClassName());
+        Logger.i("shanghai", "add activity: " + this.getLocalClassName());
         ActivityManager.getInstance().addActivity(this);
     }
 
@@ -57,6 +57,6 @@ public class BaseActivity extends AppCompatActivity {
     public Boolean areSettingsAvailable(Context context, Intent intent) {
         List<ResolveInfo>
             activities = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return activities != null && activities.size() > 0;
+        return activities != null && !activities.isEmpty();
     }
 }
